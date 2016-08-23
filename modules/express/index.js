@@ -40,9 +40,11 @@ module.exports = function initExpressModule(ref, config, done) {
 
   const app = express();
   Object.assign(ref, { app });
-
-  app.set('view engine', 'html');
+  // 端口
   app.set('port', config.port);
+  // 模板引擎
+  app.set('view engine', 'html');
+  // 内容压缩
   app.use(compression());
   // 请求日志记录
   {
@@ -56,7 +58,7 @@ module.exports = function initExpressModule(ref, config, done) {
     });
     app.use((req, res, next) => {
       onFinished(res, () => {
-        logger.info({ req, res });
+        logger.trace({ req, res });
       });
       next();
     });
@@ -72,6 +74,7 @@ module.exports = function initExpressModule(ref, config, done) {
   // 静态资源文件
   app.use(config.publicPrefix, express.static(path.join(__dirname, config.publicDir)));
 
+  // 如果 listen=true 则监听端口
   if (config.listen) {
     this.getLogger('init').info('initExpressModule listen: %s:%s', config.hostname, config.port);
     app.listen(config.port, config.hostname, done);
