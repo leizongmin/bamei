@@ -109,5 +109,4 @@ module.exports = function initExpressModule(ref, config, done) {
     this.getLogger('init').info('initExpressModule listen: %s:%s', config.hostname, config.port);
     app.listen(config.port, config.hostname, done);
   }
-
 };

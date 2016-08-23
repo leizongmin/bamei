@@ -163,6 +163,20 @@ class Scaffolding extends ProjectCore {
     return ref;
   }
 
+  /**
+   * 捕捉系统异常
+   */
+  catchError() {
+    const logger = this.getLogger('process');
+    process.on('uncaughtException', err => {
+      logger.error('uncaughtException', bunyan.stdSerializers.err(err));
+    });
+    process.on('unhandledRejection', err => {
+      logger.error('unhandledRejection', bunyan.stdSerializers.err(err));
+    });
+    logger.info('enable uncaughtException and unhandledRejection handler');
+  }
+
 }
 
 exports.Scaffolding = Scaffolding;
