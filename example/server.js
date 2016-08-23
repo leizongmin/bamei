@@ -28,5 +28,5 @@ $p.init(function (err) {
   $p.catchError();
 
   console.log($p.config.all());
-  console.log('done');
+  $p.getLogger('init').info('server started');
 });

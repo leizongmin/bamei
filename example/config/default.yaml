@@ -6,3 +6,6 @@ logger:
     level: info
   http:
     level: trace
+
+knex-mysql:
+  host: localhost
