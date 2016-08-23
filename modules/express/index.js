@@ -23,6 +23,12 @@ const onFinished = require('on-finished');
  *   {String} logLevel http访问日志等级，默认 INFO
  *   {String} publicPrefix 静态资源文件路径前缀，默认 /public
  *   {String} publicDir 静态资源文件目录，默认 ./public
+ *   {Object} compression compression 中间件的配置，false 表示关闭，默认 {}
+ *   {Object} json json 中间件的配置，false 表示关闭，默认 {}
+ *   {Object} urlencoded urlencoded 中间件的配置，false 表示关闭，默认 { extended: false }
+ *   {Object} multiparty multiparty 中间件的配置，false 表示关闭，默认 {}
+ *   {Object} cookie cookie 中间件的配置，false 表示关闭，默认 { secret: 'hrob8oorrafke11m' }
+ *   {Object} validator validator 中间件的配置，false 表示关闭，默认 {}
  */
 module.exports = function initExpressModule(ref, config, done) {
 
@@ -35,17 +41,25 @@ module.exports = function initExpressModule(ref, config, done) {
     logLevel: 'INFO',
     publicPrefix: '/public',
     publicDir: './public',
+    compression: {},
+    json: {},
+    urlencoded: { extended: false },
+    multiparty: {},
+    cookie: { secret: 'hrob8oorrafke11m' },
+    validator: {},
   }, config);
   this.getLogger('init').info('initExpressModule config: %j', config);
 
   const app = express();
-  Object.assign(ref, { app });
+
   // 端口
   app.set('port', config.port);
   // 模板引擎
   app.set('view engine', 'html');
   // 内容压缩
-  app.use(compression());
+  if (config.compression) {
+    app.use(compression(config.compression));
+  }
   // 请求日志记录
   {
     const bunyan = this._bunyan;
@@ -63,16 +77,32 @@ module.exports = function initExpressModule(ref, config, done) {
       next();
     });
   }
-  // body解析
-  app.use(bodyParser.json());
-  app.use(bodyParser.urlencoded({ extended: false }));
-  app.use(multiparty());
-  // express-validator
-  app.use(expressValidator());
-  // cookie解析
-  app.use(cookieParser());
   // 静态资源文件
   app.use(config.publicPrefix, express.static(path.join(__dirname, config.publicDir)));
+  // body解析
+  if (config.json) {
+    app.use(bodyParser.json(config.json));
+  }
+  if (config.urlencoded) {
+    app.use(bodyParser.urlencoded(config.urlencoded));
+  }
+  if (config.multiparty) {
+    app.use(multiparty(config.multiparty));
+  }
+  // express-validator
+  if (config.validator) {
+    app.use(expressValidator(config.validator));
+  }
+  // cookie解析
+  if (config.cookie) {
+    app.use(cookieParser(config.cookie.secret, config.cookie));
+  }
+
+  // 路由
+  const router = new express.Router();
+  app.use(router);
+
+  Object.assign(ref, { app, router });
 
   // 如果 listen=true 则监听端口
   if (config.listen) {
