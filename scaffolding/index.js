@@ -129,12 +129,23 @@ class Scaffolding extends ProjectCore {
    *
    * @param {String} name
    * @param {String|Object} config
+   * @param {Function} callback 格式：function (ref) {} 或 function (ref, done) {}
    * @return {Object}
    */
-  module(name, config) {
+  module(name, config, callback) {
+    const logger = this.getLogger('init');
     const ref = {};
+    // 处理参数
+    if (typeof config === 'function') {
+      // eslint-disable-next-line
+      callback = config;
+      // eslint-disable-next-line
+      config = '';
+    }
+    // 添加的初始化任务队列中
     this.init.add(done => {
-      this.getLogger('init').info(`initing module ${ name }`);
+      logger.info(`initing module ${ name }`);
+
       // 获取配置
       if (!config) {
         // 如果为空则自动读取以模块命名的配置项
@@ -147,15 +158,38 @@ class Scaffolding extends ProjectCore {
       }
       // eslint-disable-next-line
       config = Object.assign({}, config || {});
+
       // 载入模块并初始化
       const init = require(`bamei-module-${ name }`);
       init.call(this, ref, config, err => {
-        if (err) {
-          this.getLogger('init').error(`initing module ${ name } error: ${ err.stack }`);
+        // init done 回调
+        const callDone = err => {
+          if (err) {
+            logger.error(`initing module ${ name } fail`, bunyan.stdSerializers.err(err));
+          } else {
+            logger.info(`initing module ${ name } success`);
+          }
+          process.nextTick(() => done(err));
+        };
+
+        // 如果出错则直接返回
+        if (err) return callDone(err);
+
+        // 执行模块初始化回调
+        if (typeof callback === 'function') {
+
+          if (callback.length >= 2) {
+            // 异步函数的回调
+            callback(ref, callDone);
+          } else {
+            // 同步函数的回调
+            callback(ref);
+            callDone();
+          }
+
         } else {
-          this.getLogger('init').info(`initing module ${ name } success`);
+          process.nextTick(() => done());
         }
-        process.nextTick(() => done(err));
       });
     });
     // 设置到 ns 中

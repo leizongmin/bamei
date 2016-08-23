@@ -11,17 +11,13 @@ const bamei = require('bamei');
 const $p = bamei.create();
 
 // 初始化 express 模块，从 config.web 中读取配置
-$p.module('express');
-
-$p.init.add(() => {
-  $p.get('express.router').get('/', function (req, res) {
-    res.send(new Date());
-    process.nextTick(() => {
-      const err = new Error('haha');
-      err.code = 'UUU';
-      throw err;
+$p.module('express', ({ router }, done) => {
+  setTimeout(() => {
+    router.get('/', function (req, res) {
+      res.send(new Date());
     });
-  });
+    done();
+  }, 1000);
 });
 
 // 完成初始化
