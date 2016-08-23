@@ -8,9 +8,7 @@
 
 const bamei = require('bamei');
 
-const $p = bamei.create({
-  configExtname: '.yaml',
-});
+const $p = bamei.create();
 
 // 初始化 express 模块，从 config.web 中读取配置
 $p.module('express');

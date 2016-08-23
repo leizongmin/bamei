@@ -6,6 +6,7 @@
  * @author Zongmin Lei <leizongmin@gmail.com>
  */
 
+const fs = require('fs');
 const path = require('path');
 const bunyan = require('bunyan');
 const ProjectCore = require('project-core');
@@ -14,6 +15,17 @@ const createNamespace = require('lei-ns').create;
 // 根据逗号分隔字符串，并删除收尾空格
 function splitByComma(str) {
   return str.split(',').map(n => n.trim()).filter(n => n);
+}
+
+// 自动探测可能的配置文件名，后缀优先级：.js > .json > .yaml
+function getExistsConfigFileName(file) {
+  const extnames = [ '', '.js', '.json', '.yaml', '.yml' ];
+  for (const ext of extnames) {
+    const f = file + ext;
+    if (fs.existsSync(f)) {
+      return f;
+    }
+  }
 }
 
 class Scaffolding extends ProjectCore {
@@ -34,14 +46,20 @@ class Scaffolding extends ProjectCore {
 
     // 配置文件目录
     this._configDir = path.resolve(options.configDir || './config');
-    // 配置文件后缀
-    this._configExtname = options.configExtname || process.env.NODE_CONFIG_EXTNAME || '';
     // 配置名称
     this._configNames = splitByComma(options.env || process.env.NODE_ENV || '');
     this._configNames.unshift('default');
     // 加载配置文件
+    this._loadedConfigNames = [];
     this._configNames.forEach(n => {
-      this.config.load(path.resolve(this._configDir, `${ n }${ this._configExtname }`));
+      const f = getExistsConfigFileName(path.resolve(this._configDir, `${ n }`));
+      if (!f) {
+        // 如果是 default 不存在则不载入
+        if (n === 'default') return;
+        throw new Error(`config file not found: ${ f }`);
+      }
+      this.config.load(f);
+      this._loadedConfigNames.push(f);
     });
 
     // 日志记录器
@@ -51,6 +69,8 @@ class Scaffolding extends ProjectCore {
     // 用于存储全局数据
     this._ns = createNamespace();
 
+    // 打印已载入的配置
+    this.getLogger('init').info(`loaded configs: ${ this._loadedConfigNames.join(', ') }`);
   }
 
   /**
