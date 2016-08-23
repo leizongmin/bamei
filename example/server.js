@@ -14,14 +14,10 @@ const $p = bamei.create();
 $p.module('knex-mysql');
 
 // 初始化 express 模块
-$p.module('express', ({ router }) => {
-  router.get('/', function (req, res, next) {
-    $p.get('knex-mysql.client').raw('show tables').asCallback((err, ret) => {
-      if (err) return next(err);
-      res.send(ret);
-    });
-  });
-});
+$p.module('express');
+
+// 载入路由程序
+$p.init.load('./routes');
 
 // 完成初始化
 $p.init(function (err) {
