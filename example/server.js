@@ -15,7 +15,12 @@ module.exports = require('bamei').create(function () {
   this.module('express');
 
   // 载入路由程序
-  this.init.load('./routes');
+  this.task('./routes');
+
+  // 其他任务
+  this.task(() => {
+    console.log('hello, world');
+  });
 
   // 完成初始化
   this.init(err => {

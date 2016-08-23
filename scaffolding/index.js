@@ -198,6 +198,19 @@ class Scaffolding extends ProjectCore {
   }
 
   /**
+   * 添加初始化任务
+   *
+   * @param {String|Function} task
+   */
+  task(task) {
+    if (typeof task === 'function') {
+      this.init.add(task);
+    } else {
+      this.init.load(task);
+    }
+  }
+
+  /**
    * 捕捉系统异常
    */
   catchError() {
