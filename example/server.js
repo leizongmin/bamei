@@ -6,26 +6,26 @@
  * @author Zongmin Lei <leizongmin@gmail.com>
  */
 
-const bamei = require('bamei');
+module.exports = require('bamei').create(function () {
 
-const $p = bamei.create();
+  // 初始化 knex-mysql 模块
+  this.module('knex-mysql');
 
-// 初始化 knex-mysql 模块
-$p.module('knex-mysql');
+  // 初始化 express 模块
+  this.module('express');
 
-// 初始化 express 模块
-$p.module('express');
+  // 载入路由程序
+  this.init.load('./routes');
 
-// 载入路由程序
-$p.init.load('./routes');
+  // 完成初始化
+  this.init(err => {
+    if (err) throw err;
 
-// 完成初始化
-$p.init(function (err) {
-  if (err) throw err;
+    // 开启全局错误捕获
+    this.catchError();
 
-  // 开启全局错误捕获
-  $p.catchError();
+    console.log(this.config.all());
+    this.getLogger('init').info('server started');
+  });
 
-  console.log($p.config.all());
-  $p.getLogger('init').info('server started');
 });

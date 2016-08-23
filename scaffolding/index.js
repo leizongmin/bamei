@@ -215,6 +215,23 @@ class Scaffolding extends ProjectCore {
 
 exports.Scaffolding = Scaffolding;
 
-exports.create = function createScaffolding(options) {
-  return new Scaffolding(options);
+/**
+ * 创建脚手架实例
+ *
+ * @param {Object} options
+ * @param {Function} callback
+ * @return {Object}
+ */
+exports.create = function createScaffolding(options, callback) {
+  if (typeof options === 'function') {
+    // eslint-disable-next-line
+    callback = options;
+    // eslint-disable-next-line
+    options = {};
+  }
+  const project = new Scaffolding(options);
+  if (typeof callback === 'function') {
+    callback.call(project, project);
+  }
+  return project;
 };
