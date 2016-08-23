@@ -1,0 +1,6 @@
+web:
+  port: 3000
+
+logger:
+  init:
+    level: info

@@ -1,0 +1,19 @@
+{
+  "name": "bamei-example",
+  "version": "0.0.0",
+  "description": "example",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/leizongmin/bamei.git"
+  },
+  "author": "Zongmin Lei <leizongmin@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/leizongmin/bamei/issues"
+  },
+  "homepage": "https://github.com/leizongmin/bamei#readme"
+}
