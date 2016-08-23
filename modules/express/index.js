@@ -27,14 +27,15 @@ const onFinished = require('on-finished');
 module.exports = function initExpressModule(ref, config, done) {
 
   // 默认配置
-  Object.assign(config, {
+  // eslint-disable-next-line
+  config = Object.assign({
     listen: true,
     port: 3000,
     hostname: '0.0.0.0',
     logLevel: 'INFO',
     publicPrefix: '/public',
     publicDir: './public',
-  });
+  }, config);
   this.getLogger('init').info('initExpressModule config: %j', config);
 
   const app = express();

@@ -1,4 +1,4 @@
-web:
+express:
   port: 3000
 
 logger:

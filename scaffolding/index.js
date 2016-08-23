@@ -9,6 +9,7 @@
 const path = require('path');
 const bunyan = require('bunyan');
 const ProjectCore = require('project-core');
+const createNamespace = require('lei-ns').create;
 
 // 根据逗号分隔字符串，并删除收尾空格
 function splitByComma(str) {
@@ -47,6 +48,30 @@ class Scaffolding extends ProjectCore {
     this._logger = {};
     this._bunyan = bunyan;
 
+    // 用于存储全局数据
+    this._ns = createNamespace();
+
+  }
+
+  /**
+   * 取数据
+   *
+   * @param {String} name
+   * @return {Object}
+   */
+  get(name) {
+    return this._ns.get(name);
+  }
+
+  /**
+   * 设置数据
+   *
+   * @param {String} name
+   * @param {Object} value
+   * @return {Object}
+   */
+  set(name, value) {
+    return this._ns.set(name, value);
   }
 
   /**
@@ -90,12 +115,19 @@ class Scaffolding extends ProjectCore {
     const ref = {};
     this.init.add(done => {
       this.getLogger('init').info(`initing module ${ name }`);
-      if (typeof config === 'string') {
+      // 获取配置
+      if (!config) {
+        // 如果为空则自动读取以模块命名的配置项
+        // eslint-disable-next-line
+        config = this.config.get(name);
+      } else if (typeof config === 'string') {
+        // 如果是字符串则自动读取指定配置项
         // eslint-disable-next-line
         config = this.config.get(config);
       }
       // eslint-disable-next-line
       config = Object.assign({}, config || {});
+      // 载入模块并初始化
       const init = require(`bamei-module-${ name }`);
       init.call(this, ref, config, err => {
         if (err) {
@@ -106,6 +138,8 @@ class Scaffolding extends ProjectCore {
         process.nextTick(() => done(err));
       });
     });
+    // 设置到 ns 中
+    this.set(name, ref);
     return ref;
   }
 

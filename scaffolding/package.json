@@ -17,6 +17,7 @@
   "license": "MIT",
   "dependencies": {
     "bunyan": "^1.8.1",
+    "lei-ns": "^0.3.1",
     "project-core": "^1.0.4"
   }
 }
