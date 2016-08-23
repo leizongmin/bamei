@@ -10,14 +10,17 @@ const bamei = require('bamei');
 
 const $p = bamei.create();
 
-// 初始化 express 模块，从 config.web 中读取配置
-$p.module('express', ({ router }, done) => {
-  setTimeout(() => {
-    router.get('/', function (req, res) {
-      res.send(new Date());
+// 初始化 knex-mysql 模块
+$p.module('knex-mysql');
+
+// 初始化 express 模块
+$p.module('express', ({ router }) => {
+  router.get('/', function (req, res, next) {
+    $p.get('knex-mysql.client').raw('show tables').asCallback((err, ret) => {
+      if (err) return next(err);
+      res.send(ret);
     });
-    done();
-  }, 1000);
+  });
 });
 
 // 完成初始化
