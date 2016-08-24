@@ -27,4 +27,8 @@ module.exports = function () {
     });
   });
 
+  router.get('/hello', function (req, res) {
+    res.render('hello', { message: `现在是北京时间${ new Date() }` });
+  });
+
 };

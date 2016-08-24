@@ -15,6 +15,7 @@ const compression = require('compression');
 const expressValidator = require('express-validator');
 const onFinished = require('on-finished');
 const favicon = require('serve-favicon');
+const ejs = require('ejs');
 
 /**
  * 配置：
@@ -31,6 +32,7 @@ const favicon = require('serve-favicon');
  *   {Object} cookie cookie 中间件的配置，false 表示关闭，默认 { secret: 'hrob8oorrafke11m' }
  *   {Object} validator validator 中间件的配置，false 表示关闭，默认 {}
  *   {Object} favicon favicon文件名，false 表示关闭，默认 false
+ *   {String} viewsDir 模板目录，默认 ./views
  */
 exports.config = function fillDefaultConfig(config) {
   return Object.assign({
@@ -47,6 +49,7 @@ exports.config = function fillDefaultConfig(config) {
     cookie: { secret: 'hrob8oorrafke11m' },
     validator: {},
     favicon: false,
+    viewsDir: './views',
   }, config);
 };
 
@@ -63,6 +66,8 @@ exports.init = function initExpressModule(ref, config, done) {
   app.set('port', config.port);
   // 模板引擎
   app.set('view engine', 'html');
+  app.engine('html', ejs.__express);
+  app.set('views', config.viewsDir);
   // 内容压缩
   if (config.compression) {
     app.use(compression(config.compression));

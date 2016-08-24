@@ -17,6 +17,7 @@
     "compression": "^1.6.2",
     "connect-multiparty": "^2.0.0",
     "cookie-parser": "^1.4.3",
+    "ejs": "^2.5.1",
     "express": "^4.14.0",
     "express-validator": "^2.20.8",
     "on-finished": "^2.3.0",
