@@ -53,7 +53,7 @@ inquirer.prompt(schema).then(answers => {
   fs.writeFileSync(indexFile, indexContent);
 
   // 创建链接
-  const linkFile = path.resolve(__dirname, '../../node_modules/${ pkg.name }');
+  const linkFile = path.resolve(__dirname, `../../node_modules/${ shortName }.js`);
   console.log(`创建文件: ${ linkFile }`);
   fs.writeFileSync(linkFile, `module.exports = require('../modules/${ shortName }');`);
 
