@@ -102,7 +102,7 @@ module.exports = function initExpressModule(ref, config, done) {
   const router = new express.Router();
   app.use(router);
 
-  Object.assign(ref, { app, router });
+  Object.assign(ref, { $ns: 'express', app, router });
 
   // 如果 listen=true 则监听端口
   if (config.listen) {

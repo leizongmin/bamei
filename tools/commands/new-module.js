@@ -29,6 +29,7 @@ inquirer.prompt(schema).then(answers => {
   const pkg = require(path.resolve(__dirname, './new-module/module-package.tpl.json'));
   pkg.name = pkg.description = `bamei-module-${ shortName }`;
 
+  // 创建目录
   const dir = path.resolve(__dirname, `../../modules/${ shortName }`);
   if (fs.existsSync(dir)) {
     console.log(colors.red(`${ dir } 目录已存在！`));
@@ -37,10 +38,12 @@ inquirer.prompt(schema).then(answers => {
   console.log(`创建目录: ${ dir }`);
   fs.mkdirSync(dir);
 
+  // 创建 package.json
   const pkgFile = path.resolve(dir, 'package.json');
   console.log(`创建文件: ${ pkgFile }`);
   fs.writeFileSync(pkgFile, utils.jsonStringify(pkg, 2));
 
+  // 创建 index.js
   const sourceIndexFile = path.resolve(__dirname, './new-module/module-index.tpl.js');
   const indexFile = path.resolve(dir, 'index.js');
   console.log(`创建文件: ${ indexFile }`);
@@ -48,6 +51,11 @@ inquirer.prompt(schema).then(answers => {
   indexContent = replaceVar(indexContent, 'name', shortName);
   indexContent = replaceVar(indexContent, 'Name', capitalizeFirstLetter(shortName));
   fs.writeFileSync(indexFile, indexContent);
+
+  // 创建链接
+  const linkFile = path.resolve(__dirname, '../../node_modules/${ pkg.name }');
+  console.log(`创建文件: ${ linkFile }`);
+  fs.writeFileSync(linkFile, `module.exports = require('../modules/${ shortName }');`);
 
   console.log('完成。');
 

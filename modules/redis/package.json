@@ -12,5 +12,7 @@
   },
   "author": "Zongmin Lei <leizongmin@gmail.com>",
   "license": "MIT",
-  "dependencies": {}
+  "dependencies": {
+    "ioredis": "^2.3.0"
+  }
 }

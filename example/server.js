@@ -14,6 +14,7 @@ module.exports = require('bamei').create(function () {
   // 初始化 express 模块
   this.module('express');
   this.module('express-session-redis');
+  this.module('redis');
 
   // 载入路由程序
   this.task('./routes');
@@ -21,6 +22,7 @@ module.exports = require('bamei').create(function () {
   // 其他任务
   this.task(() => {
     console.log('hello, world');
+    this.get('redis.client').keys('*', console.log);
   });
 
   // 完成初始化
