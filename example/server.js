@@ -15,6 +15,7 @@ module.exports = require('bamei').create(function () {
   this.module('express');
   this.module('express-session-redis');
   this.module('redis');
+  this.module('mysql');
 
   // 载入路由程序
   this.task('./routes');
@@ -22,7 +23,7 @@ module.exports = require('bamei').create(function () {
   // 其他任务
   this.task(() => {
     console.log('hello, world');
-    this.get('redis.client').keys('*', console.log);
+    this.get('mysql.client').query('show tables', console.log);
   });
 
   // 完成初始化
