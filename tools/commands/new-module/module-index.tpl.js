@@ -13,5 +13,11 @@
  */
 module.exports = function init${Name}Module(ref, config, done) {
 
+  // 默认配置
+  // eslint-disable-next-line
+  config = Object.assign({
+
+  }, config);
+  this.getLogger('init').info('init${Name}Module config: %j', config);
 
 };

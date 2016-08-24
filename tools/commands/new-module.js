@@ -45,8 +45,8 @@ inquirer.prompt(schema).then(answers => {
   const indexFile = path.resolve(dir, 'index.js');
   console.log(`创建文件: ${ indexFile }`);
   let indexContent = fs.readFileSync(sourceIndexFile).toString();
-  indexContent = replaceVar(indexContent, '${name}', shortName);
-  indexContent = replaceVar(indexContent, '${Name}', capitalizeFirstLetter(shortName));
+  indexContent = replaceVar(indexContent, 'name', shortName);
+  indexContent = replaceVar(indexContent, 'Name', capitalizeFirstLetter(shortName));
   fs.writeFileSync(indexFile, indexContent);
 
   console.log('完成。');
@@ -56,7 +56,7 @@ inquirer.prompt(schema).then(answers => {
 });
 
 function replaceVar(tpl, name, value) {
-  return tpl.replace(name, value);
+  return tpl.replace(new RegExp('\\$\\{' + name + '\\}', 'g'), value);
 }
 
 function capitalizeFirstLetter(text) {
