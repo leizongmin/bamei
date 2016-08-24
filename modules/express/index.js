@@ -67,6 +67,7 @@ exports.init = function initExpressModule(ref, config, done) {
   // 模板引擎
   app.set('view engine', 'html');
   app.engine('html', ejs.__express);
+  app.engine('ejs', ejs.__express);
   app.set('views', config.viewsDir);
   // 内容压缩
   if (config.compression) {
