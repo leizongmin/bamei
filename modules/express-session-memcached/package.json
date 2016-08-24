@@ -1,0 +1,19 @@
+{
+  "name": "bamei-module-express-session-redis",
+  "version": "0.0.0",
+  "description": "module-express-session-redis",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/leizongmin/bamei.git"
+  },
+  "author": "Zongmin Lei <leizongmin@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "bamei-module-express-session": "latest",
+    "connect-memcached": "^0.2.0"
+  }
+}

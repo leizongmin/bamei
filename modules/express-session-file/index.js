@@ -7,16 +7,16 @@
  */
 
 const initExpressSessionModule = require('bamei-module-express-session');
-const RedisStore = require('connect-redis')(initExpressSessionModule.session);
+const FileStore = require('session-file-store')(initExpressSessionModule.session);
 
 /**
  * 配置：
  *   {Boolean} resave 默认 true，参考 bamei-module-express-session
  *   {Boolean} saveUninitialized 默认 true，参考 bamei-module-express-session
  *   {String} secret 默认使用 config.express.cookie.secret 的配置，参考 bamei-module-express-session
- *   {Object} store Redis连接配置，默认 {}，参考 connect-redis
+ *   {Object} store 本地文件配置，默认 { path: './sessions' }，参考 session-file-store
  */
-module.exports = function initExpressSessionRedisModule(ref, config, done) {
+module.exports = function initExpressSessionFileModule(ref, config, done) {
 
   // 默认配置
   // eslint-disable-next-line
@@ -24,11 +24,11 @@ module.exports = function initExpressSessionRedisModule(ref, config, done) {
     resave: true,
     saveUninitialized: true,
     secret: this.getConfigOrDefault('config.express.cookie.secret', ''),
-    store: {},
+    store: { path: './sessions' },
   }, config);
-  this.getLogger('init').info('initExpressSessionRedisModule config: %j', config);
+  this.getLogger('init').info('initExpressSessionFileModule config: %j', config);
 
-  config.store = new RedisStore(config.store);
+  config.store = new FileStore(config.store);
 
   initExpressSessionModule.call(this, ref, config, done);
 
