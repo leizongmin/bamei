@@ -195,6 +195,12 @@ class Scaffolding extends ProjectCore {
         // 如果出错则直接返回
         if (err) return callDone(err);
 
+        // 设置到 ns 中
+        this.set(name, ref);
+        if (ref.$ns) {
+          this.set(ref.$ns, ref);
+        }
+
         // 执行模块初始化回调
         if (typeof callback === 'function') {
 
@@ -212,8 +218,6 @@ class Scaffolding extends ProjectCore {
         }
       });
     });
-    // 设置到 ns 中
-    this.set(name, ref);
     return ref;
   }
 

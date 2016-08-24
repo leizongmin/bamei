@@ -10,7 +10,7 @@ module.exports = function () {
 
   const router = this.get('express.router');
   const mysql = this.get('knex-mysql.client');
-  const session = this.get('express-session-redis.middleware');
+  const session = this.get('express-session.middleware');
 
   router.get('/', session, function (req, res, next) {
     if (req.session.count > 0) {
@@ -21,8 +21,8 @@ module.exports = function () {
     mysql.raw('show tables').asCallback((err, ret) => {
       if (err) return next(err);
       res.send({
-        data: ret,
         session: req.session,
+        data: ret,
       });
     });
   });

@@ -31,7 +31,7 @@ module.exports = function initKnexModule(ref, config, done) {
   // 创建连接
   const client = knex(config);
 
-  Object.assign(ref, { client });
+  Object.assign(ref, { $ns: 'knex', client });
 
   done();
 

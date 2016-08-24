@@ -29,7 +29,7 @@ module.exports = function initExpressSessionModule(ref, config, done) {
 
   const middleware = expressSession(config);
 
-  Object.assign(ref, { middleware });
+  Object.assign(ref, { $ns: 'express-session', middleware });
 
   done();
 
