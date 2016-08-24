@@ -1,6 +1,6 @@
 {
   "name": "bamei-module-express-session-file",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "module-express-session-file",
   "main": "index.js",
   "scripts": {

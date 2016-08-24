@@ -1,6 +1,6 @@
 {
   "name": "bamei-module-mongoose",
-  "version": "0.0.0",
+  "version": "0.0.5",
   "description": "bamei-module-mongoose",
   "main": "index.js",
   "scripts": {
