@@ -17,23 +17,34 @@ module.exports = require('bamei').create(function () {
   this.module('redis');
   this.module('mysql');
 
-  this.module('mongoose', (ref) => {
-    const Post = ref.model('Post', {
-      title: String,
-      createdAt: Date,
-      content: String,
-    });
-    new Post({ title: 'hahahaha' }).save(console.log);
+  this.module('sqlite', () => {
+    this.get('sqlite.client').run(`
+CREATE TABLE test (
+  id int(11) NOT NULL,
+  value double NOT NULL DEFAULT '0',
+  timestamp int(11) DEFAULT NULL,
+  PRIMARY KEY (id)
+);
+    `, console.log);
   });
+
+  // this.module('mongoose', (ref) => {
+  //   const Post = ref.model('Post', {
+  //     title: String,
+  //     createdAt: Date,
+  //     content: String,
+  //   });
+  //   new Post({ title: 'hahahaha' }).save(console.log);
+  // });
 
   // 载入路由程序
   this.task('./routes');
 
   // 其他任务
-  this.task(() => {
-    console.log('hello, world');
-    this.get('mysql.client').query('show tables', console.log);
-  });
+  // this.task(() => {
+  //   console.log('hello, world');
+  //   this.get('mysql.client').query('show tables', console.log);
+  // });
 
   // 完成初始化
   this.init(err => {
