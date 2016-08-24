@@ -67,7 +67,7 @@ inquirer.prompt(schema).then(answers => {
   }
   return updateVersion(answers.version);
 }).catch(err => {
-  console.error(err.stack);
+  console.error(colors.red(err.stack));
 });
 
 // 要求手动输入版本
