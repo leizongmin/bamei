@@ -9,7 +9,7 @@
 module.exports = function () {
 
   const router = this.get('express.router');
-  const mysql = this.get('knex-mysql.client');
+  const mysql = this.get('knex.client');
   const session = this.get('express-session.middleware');
 
   router.get('/', session, function (req, res, next) {

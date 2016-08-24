@@ -1,6 +1,6 @@
 {
   "name": "bamei-module-knex",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "module-knex",
   "main": "index.js",
   "scripts": {

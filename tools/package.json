@@ -1,7 +1,7 @@
 {
-  "name": "bamei-module-knex-mysql",
-  "version": "0.0.1",
-  "description": "module-knex-mysql",
+  "name": "@private/bamei-dev-tools",
+  "version": "0.0.0",
+  "description": "dev-tools",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -13,7 +13,8 @@
   "author": "Zongmin Lei <leizongmin@gmail.com>",
   "license": "MIT",
   "dependencies": {
-    "bamei-module-knex": "latest",
-    "mysql": "^2.11.1"
+    "colors": "^1.1.2",
+    "inquirer": "^1.1.2",
+    "lei-utils": "^2.2.0"
   }
 }
