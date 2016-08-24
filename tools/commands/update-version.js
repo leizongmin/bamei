@@ -107,5 +107,26 @@ function updateVersion(version) {
     }
   });
 
-  console.log('完成。');
+  const schema = [{
+    type: 'list',
+    name: 'publish',
+    message: colors.gray('是否发布到 NPM ?'),
+    choices: [
+      {
+        name: '是',
+        value: true,
+      },
+      {
+        name: '否',
+        value: false,
+      },
+    ],
+  }];
+  inquirer.prompt(schema).then(answers => {
+    if (answers.publish) {
+      require('./publish-all');
+    } else {
+      console.log('完成。');
+    }
+  });
 }

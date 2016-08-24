@@ -23,6 +23,11 @@ const schema = [{
       value: 'new-module',
       short: 'new-module',
     },
+    {
+      name: 'publish-all (发布所有模块)',
+      value: 'publish-all',
+      short: 'publish-all',
+    },
   ],
 }];
 
