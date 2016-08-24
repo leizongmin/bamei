@@ -6,8 +6,9 @@
  * @author Zongmin Lei <leizongmin@gmail.com>
  */
 
-const initExpressSessionModule = require('bamei-module-express-session');
-const MongoStore = require('connect-mongo')(initExpressSessionModule.session);
+const initExpressSessionModule = require('bamei-module-express-session').init;
+const session = require('bamei-module-express-session').session;
+const MongoStore = require('connect-mongo')(session);
 
 /**
  * 配置：
@@ -16,16 +17,20 @@ const MongoStore = require('connect-mongo')(initExpressSessionModule.session);
  *   {String} secret 默认使用 config.express.cookie.secret 的配置，参考 bamei-module-express-session
  *   {Object} store MongoDB连接配置，默认 { url: 'mongodb://localhost/test-session' }，参考 connect-mongo
  */
-module.exports = function initExpressSessionMongoModule(ref, config, done) {
-
-  // 默认配置
-  // eslint-disable-next-line
-  config = Object.assign({
+exports.config = function fillDefaultConfig(config) {
+  return Object.assign({
     resave: true,
     saveUninitialized: true,
     secret: this.getConfigOrDefault('config.express.cookie.secret', ''),
     store: { url: 'mongodb://localhost/test-session' },
   }, config);
+}
+
+exports.init = function initExpressSessionMongoModule(ref, config, done) {
+
+  // 默认配置
+  // eslint-disable-next-line
+  config = exports.config.call(this, config);
   this.getLogger('init').info('initExpressSessionMongoModule config: %j', config);
 
   config.store = new MongoStore(config.store);

@@ -17,11 +17,8 @@ const mysql = require('mysql');
  *   {String} database 数据库，默认 ''
  *   {Number} connectionLimit 连接池大小，默认 5
  */
-module.exports = function initMysqlModule(ref, config, done) {
-
-  // 默认配置
-  // eslint-disable-next-line
-  config = Object.assign({
+exports.config = function fillDefaultConfig(config) {
+  return Object.assign({
     host: '127.0.0.1',
     port: 3306,
     user: '',
@@ -29,6 +26,13 @@ module.exports = function initMysqlModule(ref, config, done) {
     database: '',
     connectionLimit: 5,
   }, config);
+};
+
+exports.init = function initMysqlModule(ref, config, done) {
+
+  // 默认配置
+  // eslint-disable-next-line
+  config = exports.config.call(this, config);
   this.getLogger('init').info('initMysqlModule config: %j', config);
 
   const client = mysql.createPool(config);

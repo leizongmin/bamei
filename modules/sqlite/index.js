@@ -13,14 +13,18 @@ const sqlite3 = require('sqlite3');
  *   {String} filename 文件名，默认 :memory:
  *   {String} mode 打开模式，默认 READWRITE|CREATE
  */
-module.exports = function initSqliteModule(ref, config, done) {
-
-  // 默认配置
-  // eslint-disable-next-line
-  config = Object.assign({
+exports.config = function fillDefaultConfig(config) {
+  return Object.assign({
     filename: ':memory:',
     mode: 'READWRITE|CREATE',
   }, config);
+};
+
+exports.init = function initSqliteModule(ref, config, done) {
+
+  // 默认配置
+  // eslint-disable-next-line
+  config = exports.config.call(this, config);
   this.getLogger('init').info('initSqliteModule config: %j', config);
 
   const client = new sqlite3.Database(config.filename, getOpenMode(config.mode), done);

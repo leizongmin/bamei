@@ -14,14 +14,18 @@ const knex = require('knex');
  *   {Object} connection 连接信息，默认 {}
  *   {Object} pool 连接池，默认 { min: 0, max: 5 }
  */
-module.exports = function initKnexModule(ref, config, done) {
-
-  // 默认配置
-  // eslint-disable-next-line
-  config = Object.assign({
+exports.config = function fillDefaultConfig(config) {
+  return Object.assign({
     connection: {},
     pool: { min: 0, max: 5 },
   }, config);
+};
+
+exports.init = function initKnexModule(ref, config, done) {
+
+  // 默认配置
+  // eslint-disable-next-line
+  config = exports.config.call(this, config);
   this.getLogger('init').info('initKnexModule config: %j', config);
 
   if (!config.client) {

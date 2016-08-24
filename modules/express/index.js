@@ -32,11 +32,8 @@ const favicon = require('serve-favicon');
  *   {Object} validator validator 中间件的配置，false 表示关闭，默认 {}
  *   {Object} favicon favicon文件名，false 表示关闭，默认 false
  */
-module.exports = function initExpressModule(ref, config, done) {
-
-  // 默认配置
-  // eslint-disable-next-line
-  config = Object.assign({
+exports.config = function fillDefaultConfig(config) {
+  return Object.assign({
     listen: true,
     port: 3000,
     hostname: '0.0.0.0',
@@ -51,6 +48,13 @@ module.exports = function initExpressModule(ref, config, done) {
     validator: {},
     favicon: false,
   }, config);
+};
+
+exports.init = function initExpressModule(ref, config, done) {
+
+  // 默认配置
+  // eslint-disable-next-line
+  config = exports.config.call(this, config);
   this.getLogger('init').info('initExpressModule config: %j', config);
 
   const app = express();

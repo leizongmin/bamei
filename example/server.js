@@ -28,23 +28,23 @@ CREATE TABLE test (
     `, console.log);
   });
 
-  // this.module('mongoose', (ref) => {
-  //   const Post = ref.model('Post', {
-  //     title: String,
-  //     createdAt: Date,
-  //     content: String,
-  //   });
-  //   new Post({ title: 'hahahaha' }).save(console.log);
-  // });
+  this.module('mongoose', (ref) => {
+    const Post = ref.model('Post', {
+      title: String,
+      createdAt: Date,
+      content: String,
+    });
+    new Post({ title: 'hahahaha' }).save(console.log);
+  });
 
   // 载入路由程序
   this.task('./routes');
 
   // 其他任务
-  // this.task(() => {
-  //   console.log('hello, world');
-  //   this.get('mysql.client').query('show tables', console.log);
-  // });
+  this.task(() => {
+    console.log('hello, world');
+    this.get('mysql.client').query('show tables', console.log);
+  });
 
   // 完成初始化
   this.init(err => {

@@ -180,7 +180,7 @@ class Scaffolding extends ProjectCore {
       config = Object.assign({}, config || {});
 
       // 载入模块并初始化
-      const init = require(`bamei-module-${ name }`);
+      const init = require(`bamei-module-${ name }`).init;
       init.call(this, ref, config, err => {
         // init done 回调
         const callDone = err => {
