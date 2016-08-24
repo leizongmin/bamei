@@ -17,6 +17,15 @@ module.exports = require('bamei').create(function () {
   this.module('redis');
   this.module('mysql');
 
+  this.module('mongoose', (ref) => {
+    const Post = ref.model('Post', {
+      title: String,
+      createdAt: Date,
+      content: String,
+    });
+    new Post({ title: 'hahahaha' }).save(console.log);
+  });
+
   // 载入路由程序
   this.task('./routes');
 
