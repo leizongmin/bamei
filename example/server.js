@@ -42,8 +42,10 @@ CREATE TABLE test (
 
   // 其他任务
   this.task(() => {
-    console.log('hello, world');
-    this.get('mysql.client').query('show tables', console.log);
+    this.task(() => {
+      console.log('hello, world');
+      this.get('mysql.client').query('show tables', console.log);
+    });
   });
 
   // 完成初始化

@@ -222,15 +222,22 @@ class Scaffolding extends ProjectCore {
   }
 
   /**
-   * 添加初始化任务
+   * 如果未初始化则添加初始化任务，否则立即执行任务并回调
    *
    * @param {String|Function} task
+   * @param {Function} callback
    */
-  task(task) {
+  task(task, callback) {
+    if (this.initing || this.inited) {
+      return this.run(task, callback);
+    }
     if (typeof task === 'function') {
       this.init.add(task);
     } else {
       this.init.load(task);
+    }
+    if (typeof callback === 'function') {
+      this.ready(callback);
     }
   }
 
