@@ -15,3 +15,6 @@ knex-mysql:
     database: 'test'
 
 express-session-redis:
+  cookie:
+    maxAge: 3600000
+
