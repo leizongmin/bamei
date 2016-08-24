@@ -13,6 +13,7 @@ module.exports = require('bamei').create(function () {
 
   // 初始化 express 模块
   this.module('express');
+  this.module('express-session-redis');
 
   // 载入路由程序
   this.task('./routes');

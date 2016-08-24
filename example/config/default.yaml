@@ -13,3 +13,5 @@ knex-mysql:
     user: 'root'
     password: ''
     database: 'test'
+
+express-session-redis:

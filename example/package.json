@@ -15,5 +15,14 @@
   "bugs": {
     "url": "https://github.com/leizongmin/bamei/issues"
   },
-  "homepage": "https://github.com/leizongmin/bamei#readme"
+  "homepage": "https://github.com/leizongmin/bamei#readme",
+  "dependencies": {
+    "bamei": "latest",
+    "bamei-module-knex-mysql": "latest",
+    "bamei-module-express": "latest"
+  },
+  "devDependencies": {
+    "chai": "^3.5.0",
+    "mocha": "^3.0.2"
+  }
 }

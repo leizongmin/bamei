@@ -74,6 +74,20 @@ class Scaffolding extends ProjectCore {
   }
 
   /**
+   * 如果配置项存在则获取配置，否则返回预设的默认值
+   *
+   * @param {String} name
+   * @param {Object} defaultValue
+   * @return {Object}
+   */
+  getConfigOrDefault(name, defaultValue) {
+    if (this.config.has(name)) {
+      return this.config.get(name);
+    }
+    return defaultValue;
+  }
+
+  /**
    * 取数据
    *
    * @param {String} name
@@ -149,8 +163,14 @@ class Scaffolding extends ProjectCore {
       // 获取配置
       if (!config) {
         // 如果为空则自动读取以模块命名的配置项
-        // eslint-disable-next-line
-        config = this.config.get(name);
+        if (this.config.has(name)) {
+          // eslint-disable-next-line
+          config = this.config.get(name);
+        } else {
+          // eslint-disable-next-line
+          config = {};
+          logger.warn(`initing module ${ name } with no config`);
+        }
       } else if (typeof config === 'string') {
         // 如果是字符串则自动读取指定配置项
         // eslint-disable-next-line

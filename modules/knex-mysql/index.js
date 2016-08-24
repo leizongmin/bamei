@@ -10,8 +10,8 @@ const initKnexModule = require('bamei-module-knex');
 
 /**
  * 配置：
- *   {Object} connection 连接信息，默认 {}，参考 module-knex
- *   {Object} pool 连接池，默认 { min: 0, max: 5 }，参考 module-knex
+ *   {Object} connection 连接信息，默认 {}，参考 bamei-module-knex
+ *   {Object} pool 连接池，默认 { min: 0, max: 5 }，参考 bamei-module-knex
  */
 module.exports = function initKnexMySQLModule(ref, config, done) {
 
