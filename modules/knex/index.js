@@ -1,7 +1,7 @@
 'use strict';
 
 /**
- * 项目脚手架 express 模块
+ * 项目脚手架 knex 模块
  *
  * @author Zongmin Lei <leizongmin@gmail.com>
  */
