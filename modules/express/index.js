@@ -14,6 +14,7 @@ const multiparty = require('connect-multiparty');
 const compression = require('compression');
 const expressValidator = require('express-validator');
 const onFinished = require('on-finished');
+const favicon = require('serve-favicon');
 
 /**
  * 配置：
@@ -29,6 +30,7 @@ const onFinished = require('on-finished');
  *   {Object} multiparty multiparty 中间件的配置，false 表示关闭，默认 {}
  *   {Object} cookie cookie 中间件的配置，false 表示关闭，默认 { secret: 'hrob8oorrafke11m' }
  *   {Object} validator validator 中间件的配置，false 表示关闭，默认 {}
+ *   {Object} favicon favicon文件名，false 表示关闭，默认 false
  */
 module.exports = function initExpressModule(ref, config, done) {
 
@@ -47,6 +49,7 @@ module.exports = function initExpressModule(ref, config, done) {
     multiparty: {},
     cookie: { secret: 'hrob8oorrafke11m' },
     validator: {},
+    favicon: false,
   }, config);
   this.getLogger('init').info('initExpressModule config: %j', config);
 
@@ -76,6 +79,10 @@ module.exports = function initExpressModule(ref, config, done) {
       });
       next();
     });
+  }
+  // favicon
+  if (config.favicon) {
+    app.use(favicon(config.favicon));
   }
   // 静态资源文件
   app.use(config.publicPrefix, express.static(path.join(__dirname, config.publicDir)));

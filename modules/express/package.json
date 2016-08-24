@@ -19,6 +19,7 @@
     "cookie-parser": "^1.4.3",
     "express": "^4.14.0",
     "express-validator": "^2.20.8",
-    "on-finished": "^2.3.0"
+    "on-finished": "^2.3.0",
+    "serve-favicon": "^2.3.0"
   }
 }
