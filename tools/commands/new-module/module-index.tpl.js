@@ -20,4 +20,10 @@ module.exports = function init${Name}Module(ref, config, done) {
   }, config);
   this.getLogger('init').info('init${Name}Module config: %j', config);
 
+  const client = { message: 'hello, world' };
+
+  Object.assign(ref, { $ns: '${name}', client });
+
+  done();
+
 };
