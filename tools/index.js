@@ -6,30 +6,40 @@
  * @author Zongmin Lei <leizongmin@gmail.com>
  */
 
+const colors = require('colors');
 const inquirer = require('inquirer');
 
-const schema = [{
+const questions = [{
   type: 'list',
   name: 'command',
   message: '选择要执行的命令',
   choices: [
     {
-      name: 'new-module (创建新的 module)',
+      name: '创建新的 module',
       value: 'new-module',
     },
     {
-      name: 'update-version (更新模块版本号)',
+      name: '更新模块文档 README.md',
+      value: 'update-module-docs',
+    },
+    {
+      name: '更新模块版本号',
       value: 'update-version',
     },
     {
-      name: 'publish-all (发布所有模块)',
+      name: '发布所有模块',
       value: 'publish-all',
+    },
+    {
+      name: '退出 ^C',
+      value: 'exit',
     },
   ],
 }];
 
-inquirer.prompt(schema).then(answers => {
+inquirer.prompt(questions).then(answers => {
+  if (answers.command === 'exit') return;
   require(`./commands/${ answers.command }`);
 }).catch(err => {
-  console.error(err.stack);
+  console.error(colors.red(err.stack));
 });

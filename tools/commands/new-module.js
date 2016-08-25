@@ -12,7 +12,7 @@ const colors = require('colors');
 const inquirer = require('inquirer');
 const utils = require('lei-utils');
 
-const schema = [{
+const questions = [{
   type: 'input',
   name: 'module',
   message: 'module 名称:',
@@ -23,7 +23,7 @@ const schema = [{
     return true;
   },
 }];
-inquirer.prompt(schema).then(answers => {
+inquirer.prompt(questions).then(answers => {
 
   const shortName = answers.module;
   const pkg = require(path.resolve(__dirname, './new-module/module-package.tpl.json'));

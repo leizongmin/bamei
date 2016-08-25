@@ -27,7 +27,7 @@ const versionNextSuggest = {
   patch: incrSemverVersion(currentVersion, 2),
 };
 
-const schema = [{
+const questions = [{
   type: 'list',
   name: 'version',
   message: colors.gray('semver 规范的版本号:'),
@@ -61,7 +61,7 @@ const schema = [{
 }];
 
 // 开始
-inquirer.prompt(schema).then(answers => {
+inquirer.prompt(questions).then(answers => {
   if (!answers.version) {
     return inputVersion();
   }
@@ -72,7 +72,7 @@ inquirer.prompt(schema).then(answers => {
 
 // 要求手动输入版本
 function inputVersion() {
-  const schema = [{
+  const questions = [{
     type: 'input',
     name: 'version',
     message: 'semver 规范的版本号',
@@ -83,7 +83,7 @@ function inputVersion() {
       return true;
     },
   }];
-  return inquirer.prompt(schema).then(answers => updateVersion(answers.version));
+  return inquirer.prompt(questions).then(answers => updateVersion(answers.version));
 }
 
 // 开始更新各个模块的版本
@@ -107,7 +107,7 @@ function updateVersion(version) {
     }
   });
 
-  const schema = [{
+  const questions = [{
     type: 'list',
     name: 'publish',
     message: colors.gray('是否发布到 NPM ?'),
@@ -122,7 +122,7 @@ function updateVersion(version) {
       },
     ],
   }];
-  inquirer.prompt(schema).then(answers => {
+  inquirer.prompt(questions).then(answers => {
     if (answers.publish) {
       require('./publish-all');
     } else {
