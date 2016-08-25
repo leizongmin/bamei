@@ -49,7 +49,7 @@ inquirer.prompt(schema).then(answers => {
   console.log(`创建文件: ${ indexFile }`);
   let indexContent = fs.readFileSync(sourceIndexFile).toString();
   indexContent = replaceVar(indexContent, 'name', shortName);
-  indexContent = replaceVar(indexContent, 'Name', capitalizeFirstLetter(shortName));
+  indexContent = replaceVar(indexContent, 'Name', capitalize(shortName));
   fs.writeFileSync(indexFile, indexContent);
 
   // 创建链接
@@ -69,4 +69,8 @@ function replaceVar(tpl, name, value) {
 
 function capitalizeFirstLetter(text) {
   return text[0].toUpperCase() + text.slice(1);
+}
+
+function capitalize(text) {
+  return text.split('-').map(capitalizeFirstLetter).join('');
 }
