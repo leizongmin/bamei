@@ -49,9 +49,11 @@ exports.init = function initExpressEngineNunjucksModule(ref, config, done) {
   config = exports.config.call(this, config);
   this.getLogger('init').info('initExpressEngineNunjucksModule config: %j', config);
 
-  nunjucks.configure(config.viewsDir, config);
+  // nunjucks.configure(config.viewsDir, config);
+  const env = new nunjucks.Environment(new nunjucks.FileSystemLoader(config.viewsDir, config));
+  env.express(config.express);
 
-  Object.assign(ref, { $ns: 'express-engine-nunjucks' });
+  Object.assign(ref, { $ns: 'express-engine-nunjucks', env });
 
   done();
 

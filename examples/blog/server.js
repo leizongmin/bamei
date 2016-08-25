@@ -24,6 +24,8 @@ module.exports = require('bamei').create(function () {
   // 使用 redis
   this.module('redis');
 
+  // 注册模板自定义 filter
+  this.task(path.resolve(__dirname, './init/tpl_filters.js'));
   // 注册 services
   this.task(path.resolve(__dirname, './services'));
   // 注册 routes

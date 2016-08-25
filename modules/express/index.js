@@ -101,7 +101,7 @@ exports.init = function initExpressModule(ref, config, done) {
     app.use(favicon(config.favicon));
   }
   // 静态资源文件
-  app.use(config.publicPrefix, express.static(path.join(__dirname, config.publicDir)));
+  app.use(config.publicPrefix, express.static(config.publicDir));
   // body解析
   if (config.json) {
     app.use(bodyParser.json(config.json));

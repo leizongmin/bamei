@@ -1,0 +1,90 @@
+.content {
+  color: #555;
+  line-height: 1.6;
+}
+h1, h2, h3, h4, h5, h6, b, strong {
+  font-weight: 500;
+  color: #000;
+}
+blockquote b, blockquote strong {
+  text-decoration: none;
+}
+em {
+  font-size: 0.875em;
+  color: rgba(0,0,0,0.6);
+}
+blockquote em {
+  font-size: 1em;
+}
+blockquote {
+  font-size: 14px;
+  color: #000;
+  padding: 8px 4px 8px 16px;
+  font-style: normal;
+  background-color: #f7f7f8;
+  margin: 1em 0;
+  border-left: 4px solid #ddd;
+}
+code {
+  padding: 0 0.4em;
+  font-size: 0.875em;
+  word-break: break-word;
+  /*color: #008;*/
+  font-family: Consolas,Menlo,Monaco,"Courier New",monospace;
+  text-rendering: optimizeSpeed;
+  border-radius: 3px;
+  white-space: pre-wrap;
+  color: #0086b3;
+}
+pre {
+  line-height: 1.45;
+  padding: 16px;
+  background-color: #f7f7f8;
+  border-radius: 3px;
+  white-space: pre-wrap;
+  overflow-x: scroll;
+}
+pre code {
+  padding: 0;
+  color: rgba(0,0,0,.9);
+  display: block;
+  min-width: 700px;
+}
+blockquote pre {
+  border: 1px solid #ccc;
+  border-radius: 0;
+}
+h2 {
+  border-bottom: 2px solid rgba(0,39,59,.08);
+  margin-top: 52px;
+}
+a {
+  color: #008E59;
+  text-decoration: none;
+}
+a:hover {
+  color: #B60000;
+}
+ul {
+  list-style-position: outside;
+  padding: 0 2em;
+}
+hr {
+  border: none;
+  border-bottom: 2px solid #CCC;
+  margin: 20px 0 40px 0;
+}
+table {
+  width: 100%;
+  background-color: transparent;
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+td, th {
+  border: 1px solid #CCC;
+  padding: 4px 16px;
+}
+li > p {
+  margin-top: 5px;
+  margin-bottom: 0.4em;
+}

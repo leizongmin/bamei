@@ -16,6 +16,7 @@ module.exports = function () {
   const router = $p.get('express').registerRouter('home', '/');
 
   router.get('/', pageHome);
+  router.get('/blog/:id', pageBlog);
 
   // 错误页面
   router.use(function pageError(err, req, res, _next) {
@@ -33,6 +34,15 @@ module.exports = function () {
       if (err) return next(err);
       res.locals.list = list;
       res.render('home');
+    });
+  }
+
+  // 文章页面
+  function pageBlog(req, res, next) {
+    $p.get('service.blog').getById(req.params.id, (err, blog) => {
+      if (err) return next(err);
+      res.locals.blog = blog;
+      res.render('blog');
     });
   }
 
