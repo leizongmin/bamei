@@ -11,7 +11,10 @@ const path = require('path');
 module.exports = require('bamei').create(function () {
 
   // 初始化模块
-  this.module('express');
+  this.module('express', ref => {
+    // 模板中使用配置信息
+    ref.app.locals.site = this.config.get('site');
+  });
   // session 使用 redis 存储
   this.module('express-session-redis');
   // 使用 nunjucks 模板引擎

@@ -27,3 +27,8 @@ redis:
   host: 127.0.0.1
   port: 6379
   db: 7
+
+# 博客配置
+site:
+  title: 我的个人博客
+  pageSize: 10

@@ -15,24 +15,25 @@ module.exports = function () {
   // 注册首页的路由
   const router = $p.get('express').registerRouter('home', '/');
 
+  router.get('/', pageHome);
+
   // 错误页面
-  setImmediate(() => {
-    router.use(function (err, req, res, _next) {
-      res.render('error', {
-        error: {
-          message: err.message,
-          stack: utils.replaceRealPath(err.stack),
-        },
-      });
+  router.use(function pageError(err, req, res, _next) {
+    res.render('error', {
+      error: {
+        message: err.message,
+        stack: utils.replaceRealPath(err.stack),
+      },
     });
   });
 
   // 首页
-  router.get('/', function (req, res, next) {
-    // $p.get('service.blog').getList(req.query, (err, list) => {
-
-    // });
-    next(new Error('just for test'));
-  });
+  function pageHome(req, res, next) {
+    $p.get('service.blog').getList(req.query, (err, list) => {
+      if (err) return next(err);
+      res.locals.list = list;
+      res.render('home');
+    });
+  }
 
 };
