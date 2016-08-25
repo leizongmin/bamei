@@ -122,11 +122,34 @@ exports.init = function initExpressModule(ref, config, done) {
     app.use(cookieParser(config.cookie.secret, config.cookie));
   }
 
-  // 路由
-  const router = new express.Router();
-  app.use(router);
+  // 已注册的路由
+  const router = {};
 
-  Object.assign(ref, { $ns: 'express', app, router });
+  // 注册路由
+  const registerRouter = (name, path) => {
+    // eslint-disable-next-line
+    path = path || '/';
+    if (router[name]) {
+      if (router[name].$$path !== path) {
+        throw new Error(`register router conflict for "${ name }": new path is "${ path }", old path is "${ router[name].$$path }"`);
+      }
+      return router[name];
+    }
+    router[name] = new express.Router();
+    router[name].$$path = path;
+    app.use(path, router[name]);
+    return router[name];
+  };
+
+  // 获取路由
+  const getRouter = name => {
+    if (!router[name]) {
+      throw new Error(`router "${ name }" does not exists`);
+    }
+    return router[name];
+  };
+
+  Object.assign(ref, { $ns: 'express', app, router, getRouter, registerRouter });
 
   // 如果 listen=true 则监听端口
   if (config.listen) {

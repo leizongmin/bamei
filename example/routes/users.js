@@ -8,7 +8,7 @@
 
 module.exports = function () {
 
-  const router = this.get('express.router');
+  const router = this.get('express').registerRouter('home');
   const mysql = this.get('knex.client');
   const session = this.get('express-session.middleware');
 
