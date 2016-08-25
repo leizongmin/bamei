@@ -19,8 +19,8 @@ const questions = [{
       value: 'new-module',
     },
     {
-      name: '更新模块文档 README.md',
-      value: 'update-module-docs',
+      name: '更新模块文档',
+      value: 'update-docs',
     },
     {
       name: '更新模块版本号',

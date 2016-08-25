@@ -1,5 +1,3 @@
-# bamei
-
 ## 模块列表
 
 模块名 | 版本 | 说明
@@ -17,3 +15,4 @@
 **[bamei-module-mysql](https://github.com/leizongmin/bamei/tree/master/modules/mysql)** | 0.0.6 | mysql 客户端
 **[bamei-module-redis](https://github.com/leizongmin/bamei/tree/master/modules/redis)** | 0.0.6 | redis 客户端
 **[bamei-module-sqlite](https://github.com/leizongmin/bamei/tree/master/modules/sqlite)** | 0.0.6 | sqlite3 客户端
+
