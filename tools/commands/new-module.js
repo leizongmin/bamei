@@ -15,7 +15,7 @@ const utils = require('lei-utils');
 const questions = [{
   type: 'input',
   name: 'module',
-  message: 'module 名称:',
+  message: '模块名称: babel-module-',
   validate(value) {
     if (!/^([a-z0-9]|-)+$/.test(value)) {
       return colors.red('[X] 格式不正确 (假如要创建模块 bamei-module-abc 则输入 abc)');

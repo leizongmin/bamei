@@ -15,7 +15,7 @@ const questions = [{
   message: '选择要执行的命令',
   choices: [
     {
-      name: '创建新的 module',
+      name: '创建新的模块',
       value: 'new-module',
     },
     {
