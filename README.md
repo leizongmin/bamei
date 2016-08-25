@@ -16,27 +16,11 @@
 └── tools (开发辅助工具)
 ```
 
-## 示例项目
-
-用于演示`bamei`框架的使用方法。
-
-[详细文档](https://github.com/leizongmin/bamei/tree/master/examples)
-
-## 脚手架项目（快速入门）
-
-[详细文档](https://github.com/leizongmin/bamei/tree/master/scaffolding)
-
-## 项目代码生成器
-
-[详细文档](https://github.com/leizongmin/bamei/tree/master/generator)
-
-## 支持的模块列表
-
-[详细文档](https://github.com/leizongmin/bamei/tree/master/modules)
-
-## 开发辅助工具
-
-[详细文档](https://github.com/leizongmin/bamei/tree/master/tools)
++ 示例项目 - 用于演示`bamei`框架的使用方法 - [详细文档](https://github.com/leizongmin/bamei/tree/master/examples)
++ 脚手架项目（快速入门）- [详细文档](https://github.com/leizongmin/bamei/tree/master/scaffolding)
++ 项目代码生成器 - [详细文档](https://github.com/leizongmin/bamei/tree/master/generator)
++ 支持的模块列表 - [详细文档](https://github.com/leizongmin/bamei/tree/master/modules)
++ 开发辅助工具 - [详细文档](https://github.com/leizongmin/bamei/tree/master/tools)
 
 ## License
 
