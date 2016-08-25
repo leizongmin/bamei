@@ -59,7 +59,7 @@ fs.readdirSync(modulesDir).forEach(name => {
 });
 
 // 生成模块列表
-const modulesFile = path.resolve(__dirname, '../../modules.md');
+const modulesFile = path.resolve(__dirname, '../../modules/README.md');
 fs.writeFileSync(modulesFile, ejs.render(readTpl('modules.tpl.md'), { modules }));
 console.log(colors.green(`写入文件: ${ modulesFile }`));
 
