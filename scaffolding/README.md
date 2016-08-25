@@ -1,6 +1,32 @@
-## bamei
+# bamei
 
 bamei 脚手架
+
+## 简单例子
+
+```javascript
+'use strict';
+
+module.exports = require('bamei').create(function () {
+
+  // 初始化模块
+  this.module('express');
+  this.module('express-session-redis');
+  this.module('express-engine-nunjucks');
+  this.module('mysql');
+  this.module('redis');
+
+  this.init(err => {
+    if (err) throw err;
+
+    // 开启全局错误捕获
+    this.catchError();
+
+    console.log(this.config.all());
+    this.getLogger('init').info('server started');
+  });
+});
+```
 
 ## License
 

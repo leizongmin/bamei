@@ -4,7 +4,7 @@
 
 ```
 .
-├── example (示例项目)
+├── examples (示例项目)
 ├── generator (项目代码生成器)
 ├── modules (支持的模块列表)
 ├── node_modules (所有模块的软链接，用于本地开发调试)
@@ -16,7 +16,11 @@
 
 用于演示`bamei`框架的使用方法。
 
-[详细文档](https://github.com/leizongmin/bamei/tree/master/example)
+[详细文档](https://github.com/leizongmin/bamei/tree/master/examples)
+
+## 脚手架项目（快速入门）
+
+[详细文档](https://github.com/leizongmin/bamei/tree/master/scaffolding)
 
 ## 项目代码生成器
 
@@ -25,10 +29,6 @@
 ## 支持的模块列表
 
 [详细文档](https://github.com/leizongmin/bamei/tree/master/modules)
-
-## 脚手架项目
-
-[详细文档](https://github.com/leizongmin/bamei/tree/master/scaffolding)
 
 ## 开发辅助工具
 
