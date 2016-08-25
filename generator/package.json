@@ -18,6 +18,7 @@
   "dependencies": {
     "colors": "^1.1.2",
     "inquirer": "^1.1.2",
-    "lei-utils": "^2.2.0"
+    "lei-utils": "^2.2.0",
+    "mkdirp": "^0.5.1"
   }
 }
