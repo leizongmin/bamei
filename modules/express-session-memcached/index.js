@@ -28,7 +28,7 @@ exports.config = function fillDefaultConfig(config) {
     // 参考 express-session 模块
     saveUninitialized: true,
     // 安全密钥，参考 express-session 模块
-    secret: this.getConfigOrDefault('config.express.cookie.secret', ''),
+    secret: this.getConfigOrDefault('express.cookie.secret', ''),
     // 存储引擎，参考 connect-memcached 模块
     store: { hosts: [ '127.0.0.1:11211' ]},
   }, config);
