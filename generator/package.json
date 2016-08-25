@@ -1,0 +1,23 @@
+{
+  "name": "bamei-generator",
+  "version": "0.0.1",
+  "description": "bamei-generator",
+  "main": "index.js",
+  "bin": {
+    "bamei": "index.js"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/leizongmin/bamei.git"
+  },
+  "author": "Zongmin Lei <leizongmin@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "colors": "^1.1.2",
+    "inquirer": "^1.1.2",
+    "lei-utils": "^2.2.0"
+  }
+}
