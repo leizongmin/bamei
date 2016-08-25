@@ -12,6 +12,9 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 const ObjectId = Schema.ObjectId;
 
+// Use native promises
+mongoose.Promise = global.Promise;
+
 // 版本号
 exports.version = JSON.parse(fs.readFileSync(path.resolve(__dirname, 'package.json')).toString()).version;
 
