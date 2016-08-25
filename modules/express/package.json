@@ -1,6 +1,6 @@
 {
   "name": "bamei-module-express",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "description": "express 框架支持",
   "main": "index.js",
   "scripts": {
