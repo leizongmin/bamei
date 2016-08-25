@@ -16,19 +16,19 @@ exports.version = JSON.parse(fs.readFileSync(path.resolve(__dirname, 'package.js
 // 依赖模块
 exports.dependencies = {};
 
-/**
- * 配置：
- *   {String} client 客户端类型：mysql, pg, sqlite3, mssql，必填
- *   {Object} connection 连接信息，默认 {}
- *   {Object} pool 连接池，默认 { min: 0, max: 5 }
- */
+// 填充默认配置
 exports.config = function fillDefaultConfig(config) {
   return Object.assign({
+    // 客户端类型：mysql, pg, sqlite3, mssql，必填
+    // client: '',
+    // 连接信息，默认 {}
     connection: {},
+    // 连接池
     pool: { min: 0, max: 5 },
   }, config);
 };
 
+// 初始化
 exports.init = function initKnexModule(ref, config, done) {
 
   // 默认配置

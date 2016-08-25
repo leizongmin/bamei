@@ -1,7 +1,7 @@
 {
   "name": "bamei-module-knex",
   "version": "0.0.6",
-  "description": "module-knex",
+  "description": "knex 支持，不能单独使用",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"

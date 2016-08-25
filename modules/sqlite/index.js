@@ -16,18 +16,18 @@ exports.version = JSON.parse(fs.readFileSync(path.resolve(__dirname, 'package.js
 // 依赖模块
 exports.dependencies = {};
 
-/**
- * 配置（其他参数 sqlite3 模块）：
- *   {String} filename 文件名，默认 :memory:
- *   {String} mode 打开模式，默认 READWRITE|CREATE
- */
+// 填充默认配置
 exports.config = function fillDefaultConfig(config) {
   return Object.assign({
+    // 文件名
     filename: ':memory:',
+    // 打开模式
     mode: 'READWRITE|CREATE',
+    // 其他参考 sqlite3 模块
   }, config);
 };
 
+// 初始化
 exports.init = function initSqliteModule(ref, config, done) {
 
   // 默认配置

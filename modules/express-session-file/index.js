@@ -20,22 +20,21 @@ exports.dependencies = {
   'express': '*',
 };
 
-/**
- * 配置：
- *   {Boolean} resave 默认 true，参考 bamei-module-express-session
- *   {Boolean} saveUninitialized 默认 true，参考 bamei-module-express-session
- *   {String} secret 默认使用 config.express.cookie.secret 的配置，参考 bamei-module-express-session
- *   {Object} store 本地文件配置，默认 { path: './sessions' }，参考 session-file-store
- */
+// 填充默认配置
 exports.config = function fillDefaultConfig(config) {
   return Object.assign({
+    // 参考 express-session 模块
     resave: true,
+    // 参考 express-session 模块
     saveUninitialized: true,
+    // 安全密钥，参考 express-session 模块
     secret: this.getConfigOrDefault('config.express.cookie.secret', ''),
+    // 存储引擎，参考 session-file-store 模块
     store: { path: './sessions' },
   }, config);
 };
 
+// 初始化
 exports.init = function initExpressSessionFileModule(ref, config, done) {
 
   // 默认配置

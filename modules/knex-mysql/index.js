@@ -16,15 +16,13 @@ exports.version = JSON.parse(fs.readFileSync(path.resolve(__dirname, 'package.js
 // 依赖模块
 exports.dependencies = {};
 
-/**
- * 配置：
- *   {Object} connection 连接信息，默认 {}，参考 bamei-module-knex
- *   {Object} pool 连接池，默认 { min: 0, max: 5 }，参考 bamei-module-knex
- */
+// 填充默认配置
 exports.config = function fillDefaultConfig(config) {
+  // 参考 bamei-module-knex 模块
   return config;
 };
 
+// 初始化
 exports.init = function initKnexMySQLModule(ref, config, done) {
 
   initKnexModule.call(this, ref, Object.assign({ client: 'mysql' }, config), done);

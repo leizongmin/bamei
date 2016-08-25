@@ -18,22 +18,21 @@ exports.dependencies = {
   'express': '*',
 };
 
-/**
- * 配置（其他参考 express-session 模块）：
- *   {Boolean} resave 默认 true
- *   {Boolean} saveUninitialized 默认 true
- *   {String} secret 默认使用 config.express.cookie.secret 的配置
- *   {Object} store 存储引擎，默认 null
- */
+// 填充默认配置
 exports.config = function fillDefaultConfig(config) {
   return Object.assign({
+    // 参考 express-session 模块
     resave: true,
+    // 参考 express-session 模块
     saveUninitialized: true,
+    // 安全密钥，参考 express-session 模块
     secret: this.getConfigOrDefault('config.express.cookie.secret', ''),
+    // 存储引擎，参考 express-session 模块
     store: null,
   }, config);
 };
 
+// 初始化
 exports.init = function initExpressSessionModule(ref, config, done) {
 
   // 默认配置

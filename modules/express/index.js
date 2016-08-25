@@ -24,42 +24,41 @@ exports.version = JSON.parse(fs.readFileSync(path.resolve(__dirname, 'package.js
 // 依赖模块
 exports.dependencies = {};
 
-/**
- * 配置：
- *   {Boolean} listen 开始监听端口，默认 true
- *   {Number} port 监听的端口，默认 3000
- *   {String} hostname 监听的地址，默认 0.0.0.0
- *   {String} logLevel http访问日志等级，默认 INFO
- *   {String} publicPrefix 静态资源文件路径前缀，默认 /public
- *   {String} publicDir 静态资源文件目录，默认 ./public
- *   {Object} compression compression 中间件的配置，false 表示关闭，默认 {}
- *   {Object} json json 中间件的配置，false 表示关闭，默认 {}
- *   {Object} urlencoded urlencoded 中间件的配置，false 表示关闭，默认 { extended: false }
- *   {Object} multiparty multiparty 中间件的配置，false 表示关闭，默认 {}
- *   {Object} cookie cookie 中间件的配置，false 表示关闭，默认 { secret: 'hrob8oorrafke11m' }
- *   {Object} validator validator 中间件的配置，false 表示关闭，默认 {}
- *   {Object} favicon favicon文件名，false 表示关闭，默认 false
- *   {String} viewsDir 模板目录，默认 ./views
- */
+// 填充默认配置
 exports.config = function fillDefaultConfig(config) {
   return Object.assign({
+    // 开始监听端口
     listen: true,
+    // 监听的端口
     port: 3000,
+    // 监听的地址
     hostname: '0.0.0.0',
+    // http访问日志等级
     logLevel: 'INFO',
+    // 静态资源文件路径前缀
     publicPrefix: '/public',
+    // 静态资源文件目录
     publicDir: './public',
+    // compression 中间件的配置，false 表示关闭
     compression: {},
+    // json 中间件的配置，false 表示关闭
     json: {},
+    // urlencoded urlencoded 中间件的配置，false 表示关闭
     urlencoded: { extended: false },
+    // multiparty 中间件的配置，false 表示关闭
     multiparty: {},
+    // cookie 中间件的配置，false 表示关闭
     cookie: { secret: 'hrob8oorrafke11m' },
+    // validator 中间件的配置
     validator: {},
+    // favicon文件名，false 表示关闭
     favicon: false,
+    // 模板目录
     viewsDir: './views',
   }, config);
 };
 
+// 初始化
 exports.init = function initExpressModule(ref, config, done) {
 
   // 默认配置

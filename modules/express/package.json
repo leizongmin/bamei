@@ -1,7 +1,7 @@
 {
   "name": "bamei-module-express",
   "version": "0.0.6",
-  "description": "module-express",
+  "description": "express 框架支持",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"

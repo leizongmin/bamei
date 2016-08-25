@@ -21,16 +21,16 @@ exports.version = JSON.parse(fs.readFileSync(path.resolve(__dirname, 'package.js
 // 依赖模块
 exports.dependencies = {};
 
-/**
- * 配置：（其他参考 mongoose 模块）
- *   {String} url 连接字符串，默认 'mongodb://localhost/test'
- */
+// 填充默认配置
 exports.config = function fillDefaultConfig(config) {
   return Object.assign({
+    // 连接字符串
     url: 'mongodb://localhost/test',
+    // 其他参考 mongoose 模块
   }, config);
 };
 
+// 初始化
 exports.init = function initMongooseModule(ref, config, done) {
 
   // 默认配置

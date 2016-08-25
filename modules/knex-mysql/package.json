@@ -1,7 +1,7 @@
 {
   "name": "bamei-module-knex-mysql",
   "version": "0.0.6",
-  "description": "module-knex-mysql",
+  "description": "knex 支持，使用 mysql 存储",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"

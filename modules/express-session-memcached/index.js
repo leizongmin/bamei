@@ -20,22 +20,21 @@ exports.dependencies = {
   'express': '*',
 };
 
-/**
- * 配置：
- *   {Boolean} resave 默认 true，参考 bamei-module-express-session
- *   {Boolean} saveUninitialized 默认 true，参考 bamei-module-express-session
- *   {String} secret 默认使用 config.express.cookie.secret 的配置，参考 bamei-module-express-session
- *   {Object} store Memcached连接配置，默认 { hosts: [ '127.0.0.1:11211' ]}，参考 connect-memcached
- */
+// 填充默认配置
 exports.config = function fillDefaultConfig(config) {
   return Object.assign({
+    // 参考 express-session 模块
     resave: true,
+    // 参考 express-session 模块
     saveUninitialized: true,
+    // 安全密钥，参考 express-session 模块
     secret: this.getConfigOrDefault('config.express.cookie.secret', ''),
+    // 存储引擎，参考 connect-memcached 模块
     store: { hosts: [ '127.0.0.1:11211' ]},
   }, config);
 };
 
+// 初始化
 exports.init = function initExpressSessionMemcachedModule(ref, config, done) {
 
   // 默认配置

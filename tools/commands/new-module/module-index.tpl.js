@@ -15,16 +15,14 @@ exports.version = JSON.parse(fs.readFileSync(path.resolve(__dirname, 'package.js
 // 依赖模块
 exports.dependencies = {};
 
-/**
- * 配置：
- *   {Object} connection 连接信息，默认 {}，参考 bamei-module-knex
- */
+// 填充默认配置
 exports.config = function fillDefaultConfig(config) {
   return Object.assign({
     // 默认配置
   }, config);
 };
 
+// 初始化
 exports.init = function init${Name}Module(ref, config, done) {
 
   // 默认配置

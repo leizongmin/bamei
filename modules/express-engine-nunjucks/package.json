@@ -1,7 +1,7 @@
 {
   "name": "bamei-module-express-engine-nunjucks",
   "version": "0.0.6",
-  "description": "bamei-module-express-engine-nunjucks",
+  "description": "express 框架使用 nunjucks 模板引擎",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
