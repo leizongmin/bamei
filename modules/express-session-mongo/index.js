@@ -6,9 +6,19 @@
  * @author Zongmin Lei <leizongmin@gmail.com>
  */
 
+const fs = require('fs');
+const path = require('path');
 const initExpressSessionModule = require('bamei-module-express-session').init;
 const session = require('bamei-module-express-session').session;
 const MongoStore = require('connect-mongo')(session);
+
+// 版本号
+exports.version = JSON.parse(fs.readFileSync(path.resolve(__dirname, 'package.json')).toString()).version;
+
+// 依赖模块
+exports.dependencies = {
+  'express': '*',
+};
 
 /**
  * 配置：

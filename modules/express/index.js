@@ -6,6 +6,7 @@
  * @author Zongmin Lei <leizongmin@gmail.com>
  */
 
+const fs = require('fs');
 const path = require('path');
 const express = require('express');
 const cookieParser = require('cookie-parser');
@@ -16,6 +17,12 @@ const expressValidator = require('express-validator');
 const onFinished = require('on-finished');
 const favicon = require('serve-favicon');
 const ejs = require('ejs');
+
+// 版本号
+exports.version = JSON.parse(fs.readFileSync(path.resolve(__dirname, 'package.json')).toString()).version;
+
+// 依赖模块
+exports.dependencies = {};
 
 /**
  * 配置：

@@ -6,9 +6,17 @@
  * @author Zongmin Lei <leizongmin@gmail.com>
  */
 
+const fs = require('fs');
+const path = require('path');
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 const ObjectId = Schema.ObjectId;
+
+// 版本号
+exports.version = JSON.parse(fs.readFileSync(path.resolve(__dirname, 'package.json')).toString()).version;
+
+// 依赖模块
+exports.dependencies = {};
 
 /**
  * 配置：（其他参考 mongoose 模块）

@@ -50,6 +50,23 @@ class Scaffolding extends ProjectCore {
     this._configNames = splitByComma(options.env || process.env.NODE_ENV || '');
     this._configNames.unshift('default');
     // 加载配置文件
+    this._loadConfigFromEnv();
+
+    // 日志记录器
+    this._logger = {};
+    this._bunyan = bunyan;
+
+    // 用于存储全局数据
+    this._ns = createNamespace();
+
+    // 已初始化过的变量
+    this._loadedModules = {};
+
+    // 打印已载入的配置
+    this.getLogger('init').info(`loaded configs: ${ this._loadedConfigNames.join(', ') }`);
+  }
+
+  _loadConfigFromEnv() {
     this._loadedConfigNames = [];
     this._configNames.forEach(n => {
       const f = getExistsConfigFileName(path.resolve(this._configDir, `${ n }`));
@@ -61,16 +78,6 @@ class Scaffolding extends ProjectCore {
       this.config.load(f);
       this._loadedConfigNames.push(f);
     });
-
-    // 日志记录器
-    this._logger = {};
-    this._bunyan = bunyan;
-
-    // 用于存储全局数据
-    this._ns = createNamespace();
-
-    // 打印已载入的配置
-    this.getLogger('init').info(`loaded configs: ${ this._loadedConfigNames.join(', ') }`);
   }
 
   /**
@@ -179,15 +186,28 @@ class Scaffolding extends ProjectCore {
       // eslint-disable-next-line
       config = Object.assign({}, config || {});
 
-      // 载入模块并初始化
-      const init = require(`bamei-module-${ name }`).init;
-      init.call(this, ref, config, err => {
+      // 载入模块
+      const module = require(`bamei-module-${ name }`);
+
+      // 检查其依赖是否已经初始化
+      for (const d in module.dependencies) {
+        const v = module.dependencies[d];
+        if (!this._checkLoadedModule(d, v)) {
+          const msg = `missing dependency ${ d }@${ v }, please run this.module('${ d }') before this.module('${ name }')`;
+          logger.error(msg);
+          return done(new Error(msg));
+        }
+      }
+
+      // 初始化
+      module.init.call(this, ref, config, err => {
         // init done 回调
         const callDone = err => {
           if (err) {
-            logger.error(`initing module ${ name } fail`, bunyan.stdSerializers.err(err));
+            logger.error(`initing module ${ name }@${ module.version } fail`, bunyan.stdSerializers.err(err));
           } else {
-            logger.info(`initing module ${ name } success`);
+            logger.info(`initing module ${ name }@${ module.version } success`);
+            this._loadedModules[name] = true;
           }
           process.nextTick(() => done(err));
         };
@@ -214,11 +234,23 @@ class Scaffolding extends ProjectCore {
           }
 
         } else {
-          process.nextTick(() => done());
+          callDone();
         }
       });
     });
     return ref;
+  }
+
+  /**
+   * 检查是否已加载对应版本的依赖模块
+   *
+   * @param {String} name
+   * @param {String} version
+   * @return {Boolean}
+   */
+  _checkLoadedModule(name, _version) {
+    // TODO: 目前不需要检查版本号
+    return !!this._loadedModules[name];
   }
 
   /**
