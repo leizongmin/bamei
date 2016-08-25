@@ -6,6 +6,8 @@
  * @author Zongmin Lei <leizongmin@gmail.com>
  */
 
+const utils = require('../utils');
+
 module.exports = function () {
 
   // 当前项目对象
@@ -16,7 +18,12 @@ module.exports = function () {
   // 错误页面
   setImmediate(() => {
     router.use(function (err, req, res, _next) {
-      res.render('error', { error: err });
+      res.render('error', {
+        error: {
+          message: err.message,
+          stack: utils.replaceRealPath(err.stack),
+        },
+      });
     });
   });
 

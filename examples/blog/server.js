@@ -32,7 +32,6 @@ module.exports = require('bamei').create(function () {
     // 开启全局错误捕获
     this.catchError();
 
-    console.log(this.config.all());
     this.getLogger('init').info('server started');
   });
 });
