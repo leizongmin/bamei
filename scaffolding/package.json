@@ -1,6 +1,6 @@
 {
   "name": "bamei",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "scaffolding",
   "main": "index.js",
   "scripts": {

@@ -14,19 +14,16 @@ const schema = [{
   message: '选择要执行的命令',
   choices: [
     {
-      name: 'update-version (更新模块版本号)',
-      value: 'update-version',
-      short: 'update-version',
-    },
-    {
       name: 'new-module (创建新的 module)',
       value: 'new-module',
-      short: 'new-module',
+    },
+    {
+      name: 'update-version (更新模块版本号)',
+      value: 'update-version',
     },
     {
       name: 'publish-all (发布所有模块)',
       value: 'publish-all',
-      short: 'publish-all',
     },
   ],
 }];

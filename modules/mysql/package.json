@@ -1,6 +1,6 @@
 {
   "name": "bamei-module-mysql",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "bamei-module-mysql",
   "main": "index.js",
   "scripts": {

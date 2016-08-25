@@ -1,6 +1,6 @@
 {
   "name": "bamei-module-redis",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "bamei-module-redis",
   "main": "index.js",
   "scripts": {

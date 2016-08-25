@@ -1,6 +1,6 @@
 {
   "name": "bamei-module-express-session-mongo",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "module-express-session-mongo",
   "main": "index.js",
   "scripts": {
