@@ -73,7 +73,7 @@ class Scaffolding extends ProjectCore {
       if (!f) {
         // 如果是 default 不存在则不载入
         if (n === 'default') return;
-        throw new Error(`config file not found: ${ f }`);
+        throw new Error(`config file not found: ${ n } on directory ${ this._configDir }`);
       }
       this.config.load(f);
       this._loadedConfigNames.push(f);
