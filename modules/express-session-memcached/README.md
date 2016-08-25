@@ -37,9 +37,9 @@ function fillDefaultConfig(config) {
     // 参考 express-session 模块
     saveUninitialized: true,
     // 安全密钥，参考 express-session 模块
-    secret: this.getConfigOrDefault(&#39;config.express.cookie.secret&#39;, &#39;&#39;),
+    secret: this.getConfigOrDefault('config.express.cookie.secret', ''),
     // 存储引擎，参考 connect-memcached 模块
-    store: { hosts: [ &#39;127.0.0.1:11211&#39; ]},
+    store: { hosts: [ '127.0.0.1:11211' ]},
   }, config);
 }
 ```

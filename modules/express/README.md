@@ -37,13 +37,13 @@ function fillDefaultConfig(config) {
     // 监听的端口
     port: 3000,
     // 监听的地址
-    hostname: &#39;0.0.0.0&#39;,
+    hostname: '0.0.0.0',
     // http访问日志等级
-    logLevel: &#39;INFO&#39;,
+    logLevel: 'INFO',
     // 静态资源文件路径前缀
-    publicPrefix: &#39;/public&#39;,
+    publicPrefix: '/public',
     // 静态资源文件目录
-    publicDir: &#39;./public&#39;,
+    publicDir: './public',
     // compression 中间件的配置，false 表示关闭
     compression: {},
     // json 中间件的配置，false 表示关闭
@@ -53,13 +53,13 @@ function fillDefaultConfig(config) {
     // multiparty 中间件的配置，false 表示关闭
     multiparty: {},
     // cookie 中间件的配置，false 表示关闭
-    cookie: { secret: &#39;hrob8oorrafke11m&#39; },
+    cookie: { secret: 'hrob8oorrafke11m' },
     // validator 中间件的配置
     validator: {},
     // favicon文件名，false 表示关闭
     favicon: false,
     // 模板目录
-    viewsDir: &#39;./views&#39;,
+    viewsDir: './views',
   }, config);
 }
 ```

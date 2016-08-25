@@ -33,9 +33,9 @@ $ npm install bamei-module-sqlite --save
 function fillDefaultConfig(config) {
   return Object.assign({
     // 文件名
-    filename: &#39;:memory:&#39;,
+    filename: ':memory:',
     // 打开模式
-    mode: &#39;READWRITE|CREATE&#39;,
+    mode: 'READWRITE|CREATE',
     // 其他参考 sqlite3 模块
   }, config);
 }

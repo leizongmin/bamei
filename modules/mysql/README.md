@@ -33,15 +33,15 @@ $ npm install bamei-module-mysql --save
 function fillDefaultConfig(config) {
   return Object.assign({
     // 主机地址
-    host: &#39;127.0.0.1&#39;,
+    host: '127.0.0.1',
     // 端口号
     port: 3306,
     // 用户
-    user: &#39;&#39;,
+    user: '',
     // 密码
-    password: &#39;&#39;,
+    password: '',
     // 数据库
-    database: &#39;&#39;,
+    database: '',
     // 连接池大小
     connectionLimit: 5,
     // 其他参考 mysql 模块

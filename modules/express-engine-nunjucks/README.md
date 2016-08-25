@@ -45,9 +45,9 @@ function fillDefaultConfig(config) {
     // 不使用缓存
     noCache: true,
     // 模板引擎目录
-    viewsDir: this.get(&#39;express.app&#39;).get(&#39;views&#39;),
+    viewsDir: this.get('express.app').get('views'),
     // express实例
-    express: this.get(&#39;express.app&#39;),
+    express: this.get('express.app'),
     // 其他参考 nunjucks 模块
   }, config);
 }

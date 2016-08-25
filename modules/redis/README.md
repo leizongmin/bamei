@@ -33,7 +33,7 @@ $ npm install bamei-module-redis --save
 function fillDefaultConfig(config) {
   return Object.assign({
     // 服务器地址
-    host: &#39;127.0.0.1&#39;,
+    host: '127.0.0.1',
     // 服务器端口
     port: 6379,
     // 数据库号

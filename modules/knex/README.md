@@ -33,7 +33,7 @@ $ npm install bamei-module-knex --save
 function fillDefaultConfig(config) {
   return Object.assign({
     // 客户端类型：mysql, pg, sqlite3, mssql，必填
-    // client: &#39;&#39;,
+    // client: '',
     // 连接信息，默认 {}
     connection: {},
     // 连接池

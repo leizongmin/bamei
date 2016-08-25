@@ -33,7 +33,7 @@ $ npm install bamei-module-mongoose --save
 function fillDefaultConfig(config) {
   return Object.assign({
     // 连接字符串
-    url: &#39;mongodb://localhost/test&#39;,
+    url: 'mongodb://localhost/test',
     // 其他参考 mongoose 模块
   }, config);
 }
