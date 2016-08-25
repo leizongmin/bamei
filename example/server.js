@@ -14,6 +14,7 @@ module.exports = require('bamei').create(function () {
   // 初始化 express 模块
   this.module('express');
   this.module('express-session-redis');
+  this.module('express-engine-nunjucks');
   this.module('redis');
   this.module('mysql');
 
