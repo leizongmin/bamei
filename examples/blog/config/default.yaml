@@ -1,0 +1,29 @@
+# blog example 默认配置
+# author: Zongmin Lei <leizongmin@gmail.com>
+
+# express 配置
+express:
+  port: 4000
+  cookie:
+    secret: my-blog
+
+# session 配置
+express-session-redis:
+  maxAge: 3200000 # 2小时
+  store:
+    host: 127.0.0.1
+    port: 6379
+    db: 6
+
+# mysql 配置
+mysql:
+  host: 127.0.0.1
+  port: 3306
+  database: test
+  pool: 5
+
+# redis 配置
+redis:
+  host: 127.0.0.1
+  port: 6379
+  db: 7

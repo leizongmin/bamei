@@ -1,0 +1,19 @@
+{
+  "name": "@example/bamei-blog",
+  "version": "0.0.0",
+  "description": "blog example for bamei framework",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "author": "Zongmin Lei <leizongmin@gmail.com>",
+  "license": "MIT",
+  "devDependencies": {
+    "chai": "^3.5.0",
+    "mocha": "^3.0.2"
+  },
+  "dependencies": {
+    "async": "^2.0.1"
+  }
+}
