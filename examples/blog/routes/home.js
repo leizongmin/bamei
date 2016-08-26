@@ -6,25 +6,19 @@
  * @author Zongmin Lei <leizongmin@gmail.com>
  */
 
-const utils = require('../utils');
-
 module.exports = function (ctx) {
 
   // 注册首页的路由
   const router = ctx.get('express').registerRouter('home', '/');
 
-  router.get('/', pageHome);
-  router.get('/blog/:id', pageBlog);
+  // 设置当前登录用户
+  function getLoginInfo(req, res, next) {
+    res.locals.login_user = req.cookies.login_user;
+    next();
+  }
 
-  // 错误页面
-  router.use(function pageError(err, req, res, _next) {
-    res.render('error', {
-      error: {
-        message: err.message,
-        stack: utils.replaceRealPath(err.stack),
-      },
-    });
-  });
+  router.get('/', getLoginInfo, pageHome);
+  router.get('/blog/:id', getLoginInfo, pageBlog);
 
   // 首页
   function pageHome(req, res, next) {

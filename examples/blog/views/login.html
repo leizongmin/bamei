@@ -1,0 +1,43 @@
+<!doctype html>
+<html>
+
+<head>
+  <title>登录到 {{ site.title }}登录</title>
+  <meta charset="utf-8">
+  <link rel="stylesheet" media="all" href="/public/pure.min.css">
+  <link rel="stylesheet" media="all" href="/public/base.css">
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+    }
+
+    .login {
+      max-width: 400px;
+      margin: auto;
+      margin-top: 50px;
+    }
+
+    .login .title {
+      font-size: 22px;
+      font-weight: 300;
+      color: #222;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="login">
+    <h1 class="title">登录到 {{ site.title }}</h1> {% if error %}
+    <div class="message message-error">{{ error }}</div>
+    {% endif %}
+    <form class="pure-form" method="post">
+      <fieldset class="pure-group">
+        <input type="text" name="username" class="pure-input-1" placeholder="用户名">
+        <input type="password" name="password" class="pure-input-1" placeholder="密码">
+      </fieldset>
+      <button type="submit" class="pure-button pure-input-1 pure-button-primary">登录</button>
+    </form>
+  </div>
+</body>
+
+</html>

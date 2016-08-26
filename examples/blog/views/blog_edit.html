@@ -1,0 +1,51 @@
+<!doctype html>
+<html>
+
+<head>
+  <title>编辑 {{ blog.title }}</title>
+  <meta charset="utf-8">
+  <link rel="stylesheet" media="all" href="/public/pure.min.css">
+  <link rel="stylesheet" media="all" href="/public/base.css">
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+    }
+    .title {
+      font-size: 22px;
+      font-weight: 300;
+      color: #222;
+    }
+    textarea {
+      font-size: 14px;
+    }
+  </style>
+</head>
+
+<body>
+  {% include "header.html" %}
+  {% if error %}
+  <div class="message message-error">{{ error }}</div>
+  {% endif %}
+  <h2 class="title">{{ title }}</h2>
+  <form class="pure-form" method="post">
+    <fieldset class="pure-group">
+      <input type="text" name="title" class="pure-input-1" placeholder="标题" value="{{ blog.title }}">
+      <textarea  name="summary" class="pure-input-1" rows="4" placeholder="简介">{{ blog.summary }}</textarea>
+      <textarea  name="content" class="pure-input-1" rows="30" placeholder="内容">{{ blog.content }}</textarea>
+    </fieldset>
+    <div class="pure-g">
+      <div class="pure-u-1-2">
+        <button type="submit" class="pure-button pure-input-1 pure-button-primary">保存</button>
+      </div>
+      <div class="pure-u-1-2">
+        {% if blog.id %}
+        <a href="/blog/{{ blog.id }}" class="pure-button pure-input-1">取消</a>
+        {% else %}
+        <a href="/" class="pure-button pure-input-1">取消</a>
+        {% endif %}
+      </div>
+    </div>
+  </form>
+</body>
+
+</html>

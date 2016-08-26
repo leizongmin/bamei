@@ -3,7 +3,3 @@ logger:
     level: TRACE
   http:
     level: TRACE
-
-
-haha:
-  ok: true

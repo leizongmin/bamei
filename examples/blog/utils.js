@@ -6,12 +6,14 @@
  * @author Zongmin Lei <leizongmin@gmail.com>
  */
 
+module.exports = exports = require('lei-utils').extend();
 const path = require('path');
 
 exports.replaceRealPath = function (text) {
   return `${ text }\n`
-          .replace(new RegExp(`${ __dirname }${ path.sep }`, 'g'), `.${ path.sep }`)
-          .replace(/\s*at [^.].*\n/g, '\n')
-          .replace(/\n+/g, '\n')
-          .trim();
+          .replace(new RegExp(`${ __dirname }${ path.sep }`, 'g'), `::app::.${ path.sep }`)
+          .split('\n')
+          .filter(line => /::app::/.test(line))
+          .join('\n')
+          .replace(/::app::/g, '');
 };

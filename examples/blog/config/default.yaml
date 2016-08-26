@@ -6,6 +6,7 @@ express:
   port: 4000
   cookie:
     secret: my-blog
+    maxAge: 2592000000
 
 # session 配置
 express-session-redis:
@@ -32,3 +33,7 @@ redis:
 site:
   title: 我的个人博客
   pageSize: 10
+  admin:
+    username: admin
+    # 密码的SHA1值：require('crypto').createHash('sha1').update(password).digest('hex')
+    password: 7c4a8d09ca3762af61e59520943dc26494f8941b

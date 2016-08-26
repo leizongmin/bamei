@@ -7,6 +7,7 @@
  */
 
 const path = require('path');
+const utils = require('./utils');
 
 module.exports = require('bamei').create(function (ctx) {
 
@@ -30,6 +31,17 @@ module.exports = require('bamei').create(function (ctx) {
   ctx.task(path.resolve(__dirname, './services'));
   // 注册 routes
   ctx.task(path.resolve(__dirname, './routes'));
+  // 错误页面
+  ctx.task(() => {
+    ctx.get('express.app').use(function pageError(err, req, res, _next) {
+      res.render('error', {
+        error: {
+          message: err.message,
+          stack: utils.replaceRealPath(err.stack),
+        },
+      });
+    });
+  });
 
   // 开始初始化
   ctx.init(err => {

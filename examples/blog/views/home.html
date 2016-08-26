@@ -1,52 +1,50 @@
 <!doctype html>
 <html>
-  <head>
-    <title>{{ site.title }}</title>
-    <meta charset="utf-8">
-    <style>
-      body {
-        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
-        max-width: 800px;
-        margin: 50px auto;
-      }
-      .blog {
-        margin-bottom: 60px;
-        padding: 0 20px;
-      }
-      .blog .title {
-        font-size: 22px;
-        font-weight: 300;
-        color: #222;
-      }
-      .blog .summary {
-        font-size: 14px;
-        color: #555;
-      }
-      .blog .footer {
-        font-size: 14px;
-        padding-bottom: 10px;
-        border-bottom: 1px solid #aaa;
-      }
-      .blog .footer a {
-        color: white;
-        text-decoration: none;
-        display: inline-block;
-        background-color: cadetblue;
-        padding: 5px 18px;
-        border-radius: 13px;
-      }
-      .blog .footer a:hover {
-        background-color: dodgerblue;
-      }
-    </style>
-  </head>
-  <body>
-    {% for item in list %}
-    <section class="blog">
-      <h2 class="title">{{ item.title }}</h2>
-      <p class="summary">{{ item.summary }}...</p>
-      <p class="footer"><a href="/blog/{{ item.id }}">阅读</a></p>
-    </section>
-    {% endfor %}
-  </body>
+
+<head>
+  <title>{{ site.title }}</title>
+  <meta charset="utf-8">
+  <link rel="stylesheet" media="all" href="/public/pure.min.css">
+  <link rel="stylesheet" media="all" href="/public/base.css">
+  <style>
+    .blog {
+      margin-bottom: 60px;
+      padding: 0 16px;
+    }
+
+    .blog .title {
+      font-size: 22px;
+      font-weight: 300;
+      color: #222;
+    }
+
+    .blog .summary {
+      font-size: 14px;
+      color: #555;
+    }
+
+    .blog .footer {
+      font-size: 14px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid #aaa;
+    }
+  </style>
+</head>
+
+<body>
+  {% include "header.html" %}
+  {% for item in list %}
+  <section class="blog">
+    <h2 class="title">{{ item.title }}</h2>
+    <p class="summary">{{ item.summary }}...</p>
+    <p class="footer">
+      <a href="/blog/{{ item.id }}" class="pure-button pure-button-primary">阅读</a>
+      {% if login_user %}
+      <a href="/blog/{{ item.id }}/edit" class="pure-button">编辑</a>
+      {% endif %}
+    </p>
+  </section>
+  {% endfor %}
+</body>
+
 </html>

@@ -1,0 +1,14 @@
+<header>
+  <div class="pure-menu pure-menu-horizontal">
+    <a href="#" class="pure-menu-heading pure-menu-link">{{ site.title }}</a>
+    <ul class="pure-menu-list">
+      <li class="pure-menu-item"><a href="/" class="pure-menu-link">首页</a></li>
+      {% if login_user %}
+      <li class="pure-menu-item"><a href="/post" class="pure-menu-link">发表文章</a></li>
+      <li class="pure-menu-item"><a href="/logout" class="pure-menu-link">注销</a></li>
+      {% else %}
+      <li class="pure-menu-item"><a href="/login" class="pure-menu-link">登录</a></li>
+      {% endif %}
+    </ul>
+  </div>
+</header>

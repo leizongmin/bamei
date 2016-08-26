@@ -1,28 +1,33 @@
 <!doctype html>
 <html>
-  <head>
-    <title>{% if blog %}{{ blog.title }}{% else %}文章不存在！{% endif %}</title>
-    <meta charset="utf-8">
-    <style>
-      body {
-        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
-        max-width: 800px;
-        margin: 50px auto;
-      }
-      .title {
-        font-size: 22px;
-        font-weight: 300;
-        color: #222;
-      }
-      .content {
-        margin-top: 60px;
-      }
-    </style>
-    <link rel="stylesheet" media="all" href="/public/blog.css">
-  </head>
-  <body>
-    <h1 class="title">{{ blog.title }}</h1>
-    <p>发表时间：{{ blog.created_at | moment('LLL') }}</p>
-    <div class="content">{{ blog.content | markdown | safe }}</div>
-  </body>
+
+<head>
+  <title>{% if blog %}{{ blog.title }}{% else %}文章不存在！{% endif %}</title>
+  <meta charset="utf-8">
+  <link rel="stylesheet" media="all" href="/public/pure.min.css">
+  <link rel="stylesheet" media="all" href="/public/base.css">
+  <style>
+    .title {
+      font-size: 22px;
+      font-weight: 300;
+      color: #222;
+    }
+
+    .content {
+      margin-top: 60px;
+    }
+  </style>
+  <link rel="stylesheet" media="all" href="/public/blog.css">
+</head>
+
+<body>
+  {% include "header.html" %}
+  <h1 class="title">{{ blog.title }}</h1>
+  <p>发表时间：{{ blog.created_at | moment('LLL') }}</p>
+  {% if login_user %}
+  <a href="/blog/{{ blog.id }}/edit" class="pure-button">编辑</a>
+  {% endif %}
+  <div class="content">{{ blog.content | markdown | safe }}</div>
+</body>
+
 </html>
