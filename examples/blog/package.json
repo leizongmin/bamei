@@ -16,11 +16,11 @@
   "dependencies": {
     "async": "^2.0.1",
     "bamei": "latest",
-    "bamei-module-engine-nunjucks": "latest",
     "bamei-module-express": "latest",
+    "bamei-module-express-engine-nunjucks": "latest",
+    "bamei-module-express-session-redis": "latest",
     "bamei-module-mysql": "latest",
     "bamei-module-redis": "latest",
-    "bamei-module-session-redis": "latest",
     "lei-utils": "^2.2.0",
     "markdown-it": "^7.0.1",
     "moment": "^2.14.1"
