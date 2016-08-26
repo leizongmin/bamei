@@ -1,6 +1,6 @@
 {
   "name": "bamei-module-express-session",
-  "version": "0.0.7",
+  "version": "0.0.8",
   "description": "express 框架的 session 支持",
   "main": "index.js",
   "scripts": {

@@ -1,6 +1,6 @@
 {
   "name": "bamei-module-express-session-memcached",
-  "version": "0.0.7",
+  "version": "0.0.8",
   "description": "express 框架的 session 支持，使用 memcached 存储",
   "main": "index.js",
   "scripts": {
