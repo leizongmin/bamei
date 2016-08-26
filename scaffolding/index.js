@@ -8,6 +8,7 @@
 
 const fs = require('fs');
 const path = require('path');
+const assert = require('assert');
 const bunyan = require('bunyan');
 const ProjectCore = require('project-core');
 const createNamespace = require('lei-ns').create;
@@ -26,6 +27,16 @@ function getExistsConfigFileName(file) {
       return f;
     }
   }
+}
+
+// 将字符串转成只有数字字母和-的字符串
+function handleize(text) {
+  return String(text)
+          .replace(/[^0-9a-zA-Z -]/g, '')
+          .replace(/[ ]+/g, '-')
+          .replace(/^-+/, '')
+          .replace(/-+$/, '')
+          .toLowerCase();
 }
 
 class Scaffolding extends ProjectCore {
@@ -145,6 +156,28 @@ class Scaffolding extends ProjectCore {
     return this._logger[name];
   }
 
+  _tryLoadModule(name) {
+    const isModuleNotFoundError = err => err.code === 'MODULE_NOT_FOUND';
+    const ret = {};
+    const load = name => {
+      try {
+        ret.module = require(name);
+        ret.realName = name;
+        assert.equal(typeof ret.module.init, 'function', `no init() function found in module "${ name }"`);
+        return true;
+      } catch (err) {
+        if (!isModuleNotFoundError(err)) {
+          throw err;
+        }
+        return false;
+      }
+    };
+    if (load(`bamei-module-${ name }`)) return ret;
+    if (load(name)) return ret;
+    if (load(path.resolve(name))) return ret;
+    throw new Error(`cannot found module "bamei-module-${ name }" or "${ name }"`);
+  }
+
   /**
    * 初始化模块
    *
@@ -163,16 +196,17 @@ class Scaffolding extends ProjectCore {
       // eslint-disable-next-line
       config = '';
     }
+
     // 添加的初始化任务队列中
     this.init.add((_, done) => {
-      logger.info(`initing module ${ name }`);
-
       // 获取配置
       if (!config) {
         // 如果为空则自动读取以模块命名的配置项
-        if (this.config.has(name)) {
+        const configField = handleize(name);
+        if (this.config.has(configField)) {
           // eslint-disable-next-line
-          config = this.config.get(name);
+          config = this.config.get(configField);
+          logger.trace('initing module %s with config field "%s": %j', name, configField, config);
         } else {
           // eslint-disable-next-line
           config = {};
@@ -180,14 +214,18 @@ class Scaffolding extends ProjectCore {
         }
       } else if (typeof config === 'string') {
         // 如果是字符串则自动读取指定配置项
+        const configField = config;
         // eslint-disable-next-line
-        config = this.config.get(config);
+        config = this.config.get(configField);
+        logger.trace('initing module %s with config field "%s": %j', name, configField, config);
+      } else {
+        logger.trace('initing module %s with specify config: %j', name, config);
       }
       // eslint-disable-next-line
       config = Object.assign({}, config || {});
 
       // 载入模块
-      const module = require(`bamei-module-${ name }`);
+      const { module } = this._tryLoadModule(name);
 
       // 检查其依赖是否已经初始化
       for (const d in module.dependencies) {
@@ -206,7 +244,7 @@ class Scaffolding extends ProjectCore {
           if (err) {
             logger.error(`initing module ${ name }@${ module.version } fail`, bunyan.stdSerializers.err(err));
           } else {
-            logger.info(`initing module ${ name }@${ module.version } success`);
+            logger.trace(`initing module ${ name }@${ module.version } success`);
             this._loadedModules[name] = true;
           }
           process.nextTick(() => done(err));
@@ -238,6 +276,7 @@ class Scaffolding extends ProjectCore {
         }
       });
     });
+
     return ref;
   }
 
