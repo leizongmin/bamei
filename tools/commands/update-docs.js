@@ -19,7 +19,7 @@ const tplREADME = readTpl('README.tpl.md');
 const modules = [];
 
 function updateREADME(name, dir) {
-  const file = `${ dir }/package.json`;
+  const file = path.resolve(dir, 'package.json');
   const pkg = require(file);
   const module = require(dir);
   console.log(`更新模块 ${ name }@${ pkg.version } 的文档`);
@@ -34,12 +34,18 @@ function updateREADME(name, dir) {
       };
     });
     const description = (pkg.description && pkg.description !== name) ? pkg.description : '';
+    let usage = '';
+    const usageFile = path.resolve(dir, 'usage.md');
+    if (fs.existsSync(usageFile)) {
+      usage = fs.readFileSync(usageFile).toString();
+    }
     const readme = ejs.render(tplREADME, {
       shortName: name,
       name: pkg.name,
       config,
       dependencies,
       description,
+      usage,
     });
     const readmeFile = path.resolve(dir, 'README.md');
     fs.writeFileSync(readmeFile, readme);

@@ -39,7 +39,7 @@ function fillDefaultConfig(config) {
     // 监听的地址
     hostname: '0.0.0.0',
     // http访问日志等级
-    logLevel: 'INFO',
+    logLevel: 'TRACE',
     // 静态资源文件路径前缀
     publicPrefix: '/public',
     // 静态资源文件目录
@@ -67,14 +67,18 @@ function fillDefaultConfig(config) {
 ## 初始化
 
 ```javascript
-
-// 使用 this.config.get('express') 的配置初始化
-this.module('express');
-// 或者
-// 自定义配置初始化
-const options = {};
-this.module('express', options);
+module.exports = require('bamei').create(function (ctx) {
+  
+  // 使用 ctx.config.get('express') 的配置初始化
+  ctx.module('express');
+  // 或者
+  // 自定义配置初始化
+  const options = {};
+  ctx.module('express', options);
+});
 ```
+
+
 
 ## License
 

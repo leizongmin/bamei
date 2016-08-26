@@ -38,16 +38,20 @@ $ npm install <%- name %> --save
 ## 初始化
 
 ```javascript
-<% if (dependencies.length > 0) { %>// 先初始化依赖的模块
-<% for (const item of dependencies) { %>this.module('<%- item.shortName %>');<% } %>
-<% } %>
-// 使用 this.config.get('<%- shortName %>') 的配置初始化
-this.module('<%- shortName %>');
-// 或者
-// 自定义配置初始化
-const options = {};
-this.module('<%- shortName %>', options);
+module.exports = require('bamei').create(function (ctx) {
+  <% if (dependencies.length > 0) { %>// 先初始化依赖的模块
+  <% for (const item of dependencies) { %>ctx.module('<%- item.shortName %>');<% } %>
+  <% } %>
+  // 使用 ctx.config.get('<%- shortName %>') 的配置初始化
+  ctx.module('<%- shortName %>');
+  // 或者
+  // 自定义配置初始化
+  const options = {};
+  ctx.module('<%- shortName %>', options);
+});
 ```
+
+<%- usage %>
 
 ## License
 

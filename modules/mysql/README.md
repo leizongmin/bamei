@@ -52,14 +52,39 @@ function fillDefaultConfig(config) {
 ## 初始化
 
 ```javascript
-
-// 使用 this.config.get('mysql') 的配置初始化
-this.module('mysql');
-// 或者
-// 自定义配置初始化
-const options = {};
-this.module('mysql', options);
+module.exports = require('bamei').create(function (ctx) {
+  
+  // 使用 ctx.config.get('mysql') 的配置初始化
+  ctx.module('mysql');
+  // 或者
+  // 自定义配置初始化
+  const options = {};
+  ctx.module('mysql', options);
+});
 ```
+
+## 使用方法
+
+```javascript
+module.exports = function (ctx) {
+
+  // 得到客户端连接实例
+  const client = ctx.get('mysql.client');
+
+  // 执行查询
+  client.query('SELECT * FROM `user` WHERE `User`=?', [ 'root' ], (err, ret) => {
+    if (err) {
+      console.error(err);
+    } else {
+      console.log(ret);
+    }
+  });
+
+};
+```
+
+详细使用方法参考 **mysql** 模块的 [Pooling connections](https://www.npmjs.com/package/mysql#pooling-connections)
+
 
 ## License
 

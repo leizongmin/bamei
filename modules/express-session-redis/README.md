@@ -47,16 +47,20 @@ function fillDefaultConfig(config) {
 ## 初始化
 
 ```javascript
-// 先初始化依赖的模块
-this.module('express');
-
-// 使用 this.config.get('express-session-redis') 的配置初始化
-this.module('express-session-redis');
-// 或者
-// 自定义配置初始化
-const options = {};
-this.module('express-session-redis', options);
+module.exports = require('bamei').create(function (ctx) {
+  // 先初始化依赖的模块
+  ctx.module('express');
+  
+  // 使用 ctx.config.get('express-session-redis') 的配置初始化
+  ctx.module('express-session-redis');
+  // 或者
+  // 自定义配置初始化
+  const options = {};
+  ctx.module('express-session-redis', options);
+});
 ```
+
+
 
 ## License
 

@@ -45,14 +45,18 @@ function fillDefaultConfig(config) {
 ## 初始化
 
 ```javascript
-
-// 使用 this.config.get('knex') 的配置初始化
-this.module('knex');
-// 或者
-// 自定义配置初始化
-const options = {};
-this.module('knex', options);
+module.exports = require('bamei').create(function (ctx) {
+  
+  // 使用 ctx.config.get('knex') 的配置初始化
+  ctx.module('knex');
+  // 或者
+  // 自定义配置初始化
+  const options = {};
+  ctx.module('knex', options);
+});
 ```
+
+
 
 ## License
 

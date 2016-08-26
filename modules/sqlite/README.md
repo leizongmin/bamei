@@ -44,14 +44,18 @@ function fillDefaultConfig(config) {
 ## 初始化
 
 ```javascript
-
-// 使用 this.config.get('sqlite') 的配置初始化
-this.module('sqlite');
-// 或者
-// 自定义配置初始化
-const options = {};
-this.module('sqlite', options);
+module.exports = require('bamei').create(function (ctx) {
+  
+  // 使用 ctx.config.get('sqlite') 的配置初始化
+  ctx.module('sqlite');
+  // 或者
+  // 自定义配置初始化
+  const options = {};
+  ctx.module('sqlite', options);
+});
 ```
+
+
 
 ## License
 

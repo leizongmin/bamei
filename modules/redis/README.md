@@ -46,14 +46,18 @@ function fillDefaultConfig(config) {
 ## 初始化
 
 ```javascript
-
-// 使用 this.config.get('redis') 的配置初始化
-this.module('redis');
-// 或者
-// 自定义配置初始化
-const options = {};
-this.module('redis', options);
+module.exports = require('bamei').create(function (ctx) {
+  
+  // 使用 ctx.config.get('redis') 的配置初始化
+  ctx.module('redis');
+  // 或者
+  // 自定义配置初始化
+  const options = {};
+  ctx.module('redis', options);
+});
 ```
+
+
 
 ## License
 
