@@ -40,7 +40,7 @@ exports.init = function initExpressSessionMemcachedModule(ref, config, done) {
   // 默认配置
   // eslint-disable-next-line
   config = exports.config.call(this, config);
-  this.getLogger('init').info('initExpressSessionMemcachedModule config: %j', config);
+  this.getLogger('init').trace('initExpressSessionMemcachedModule config: %j', config);
 
   config.store = new MemcachedStore(config.store);
 

@@ -34,7 +34,7 @@ exports.init = function initKnexModule(ref, config, done) {
   // 默认配置
   // eslint-disable-next-line
   config = exports.config.call(this, config);
-  this.getLogger('init').info('initKnexModule config: %j', config);
+  this.getLogger('init').trace('initKnexModule config: %j', config);
 
   if (!config.client) {
     return done(new Error(`missing option "client"`));

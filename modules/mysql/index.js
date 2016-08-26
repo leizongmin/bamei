@@ -41,7 +41,7 @@ exports.init = function initMysqlModule(ref, config, done) {
   // 默认配置
   // eslint-disable-next-line
   config = exports.config.call(this, config);
-  this.getLogger('init').info('initMysqlModule config: %j', config);
+  this.getLogger('init').trace('initMysqlModule config: %j', config);
 
   const client = mysql.createPool(config);
 

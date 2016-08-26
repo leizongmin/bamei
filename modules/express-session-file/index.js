@@ -40,7 +40,7 @@ exports.init = function initExpressSessionFileModule(ref, config, done) {
   // 默认配置
   // eslint-disable-next-line
   config = exports.config.call(this, config);
-  this.getLogger('init').info('initExpressSessionFileModule config: %j', config);
+  this.getLogger('init').trace('initExpressSessionFileModule config: %j', config);
 
   config.store = new FileStore(config.store);
 

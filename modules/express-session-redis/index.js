@@ -40,7 +40,7 @@ exports.init = function initExpressSessionRedisModule(ref, config, done) {
   // 默认配置
   // eslint-disable-next-line
   config = exports.config.call(this, config);
-  this.getLogger('init').info('initExpressSessionRedisModule config: %j', config);
+  this.getLogger('init').trace('initExpressSessionRedisModule config: %j', config);
 
   config.store = new RedisStore(config.store);
 

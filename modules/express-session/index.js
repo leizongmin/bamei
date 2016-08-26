@@ -38,7 +38,7 @@ exports.init = function initExpressSessionModule(ref, config, done) {
   // 默认配置
   // eslint-disable-next-line
   config = exports.config.call(this, config);
-  this.getLogger('init').info('initExpressSessionModule config: %j', config);
+  this.getLogger('init').trace('initExpressSessionModule config: %j', config);
 
   const middleware = expressSession(config);
 

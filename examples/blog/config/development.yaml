@@ -1,3 +1,9 @@
 logger:
+  init:
+    level: TRACE
   http:
     level: TRACE
+
+
+haha:
+  ok: true

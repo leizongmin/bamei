@@ -35,7 +35,7 @@ exports.init = function initRedisModule(ref, config, done) {
   // 默认配置
   // eslint-disable-next-line
   config = exports.config.call(this, config);
-  this.getLogger('init').info('initRedisModule config: %j', config);
+  this.getLogger('init').trace('initRedisModule config: %j', config);
 
   // 创建客户端
   const client = new Redis(config);

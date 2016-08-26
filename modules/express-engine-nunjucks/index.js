@@ -47,7 +47,7 @@ exports.init = function initExpressEngineNunjucksModule(ref, config, done) {
   // 默认配置
   // eslint-disable-next-line
   config = exports.config.call(this, config);
-  this.getLogger('init').info('initExpressEngineNunjucksModule config: %j', config);
+  this.getLogger('init').trace('initExpressEngineNunjucksModule config: %j', config);
 
   // nunjucks.configure(config.viewsDir, config);
   const env = new nunjucks.Environment(new nunjucks.FileSystemLoader(config.viewsDir, config));

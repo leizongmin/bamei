@@ -36,7 +36,7 @@ exports.init = function initMongooseModule(ref, config, done) {
   // 默认配置
   // eslint-disable-next-line
   config = exports.config.call(this, config);
-  this.getLogger('init').info('initMongooseModule config: %j', config);
+  this.getLogger('init').trace('initMongooseModule config: %j', config);
 
   const client = mongoose.createConnection(config.url, config);
 

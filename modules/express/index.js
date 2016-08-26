@@ -64,7 +64,7 @@ exports.init = function initExpressModule(ref, config, done) {
   // 默认配置
   // eslint-disable-next-line
   config = exports.config.call(this, config);
-  this.getLogger('init').info('initExpressModule config: %j', config);
+  this.getLogger('init').trace('initExpressModule config: %j', config);
 
   const app = express();
 
@@ -156,7 +156,7 @@ exports.init = function initExpressModule(ref, config, done) {
 
   // 如果 listen=true 则监听端口
   if (config.listen) {
-    this.getLogger('init').info('initExpressModule listen: %s:%s', config.hostname, config.port);
+    this.getLogger('init').trace('initExpressModule listen: %s:%s', config.hostname, config.port);
     app.listen(config.port, config.hostname, done);
   }
 };

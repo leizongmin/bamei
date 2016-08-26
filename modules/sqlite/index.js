@@ -33,7 +33,7 @@ exports.init = function initSqliteModule(ref, config, done) {
   // 默认配置
   // eslint-disable-next-line
   config = exports.config.call(this, config);
-  this.getLogger('init').info('initSqliteModule config: %j', config);
+  this.getLogger('init').trace('initSqliteModule config: %j', config);
 
   const client = new sqlite3.Database(config.filename, getOpenMode(config.mode), done);
 
