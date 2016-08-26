@@ -11,9 +11,9 @@ const md = new MarkdownIt();
 const moment = require('moment');
 moment.locale('zh-cn');
 
-module.exports = function () {
+module.exports = function (ctx) {
 
-  const env = this.get('express-engine-nunjucks.env');
+  const env = ctx.get('express-engine-nunjucks.env');
 
   env.addFilter('markdown', filterMarkdown);
   env.addFilter('moment', filterMoment);

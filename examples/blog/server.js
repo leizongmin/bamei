@@ -8,35 +8,36 @@
 
 const path = require('path');
 
-module.exports = require('bamei').create(function () {
+module.exports = require('bamei').create(function (ctx) {
 
   // 初始化模块
-  this.module('express', ref => {
+  ctx.module('express', ref => {
     // 模板中使用配置信息
-    ref.app.locals.site = this.config.get('site');
+    ref.app.locals.site = ctx.config.get('site');
   });
   // session 使用 redis 存储
-  this.module('express-session-redis');
+  ctx.module('express-session-redis');
   // 使用 nunjucks 模板引擎
-  this.module('express-engine-nunjucks');
+  ctx.module('express-engine-nunjucks');
   // 使用 mysql
-  this.module('mysql');
+  ctx.module('mysql');
   // 使用 redis
-  this.module('redis');
+  ctx.module('redis');
 
   // 注册模板自定义 filter
-  this.task(path.resolve(__dirname, './init/tpl_filters.js'));
+  ctx.task(path.resolve(__dirname, './init/tpl_filters.js'));
   // 注册 services
-  this.task(path.resolve(__dirname, './services'));
+  ctx.task(path.resolve(__dirname, './services'));
   // 注册 routes
-  this.task(path.resolve(__dirname, './routes'));
+  ctx.task(path.resolve(__dirname, './routes'));
 
-  this.init(err => {
+  // 开始初始化
+  ctx.init(err => {
     if (err) throw err;
 
     // 开启全局错误捕获
-    this.catchError();
+    ctx.catchError();
 
-    this.getLogger('init').info('server started');
+    ctx.getLogger('init').info('server started');
   });
 });

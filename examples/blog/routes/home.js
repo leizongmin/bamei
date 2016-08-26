@@ -8,12 +8,10 @@
 
 const utils = require('../utils');
 
-module.exports = function () {
+module.exports = function (ctx) {
 
-  // 当前项目对象
-  const $p = this;
   // 注册首页的路由
-  const router = $p.get('express').registerRouter('home', '/');
+  const router = ctx.get('express').registerRouter('home', '/');
 
   router.get('/', pageHome);
   router.get('/blog/:id', pageBlog);
@@ -30,7 +28,7 @@ module.exports = function () {
 
   // 首页
   function pageHome(req, res, next) {
-    $p.get('service.blog').getList(req.query, (err, list) => {
+    ctx.get('service.blog').getList(req.query, (err, list) => {
       if (err) return next(err);
       res.locals.list = list;
       res.render('home');
@@ -39,7 +37,7 @@ module.exports = function () {
 
   // 文章页面
   function pageBlog(req, res, next) {
-    $p.get('service.blog').getById(req.params.id, (err, blog) => {
+    ctx.get('service.blog').getById(req.params.id, (err, blog) => {
       if (err) return next(err);
       res.locals.blog = blog;
       res.render('blog');

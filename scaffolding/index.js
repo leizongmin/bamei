@@ -164,7 +164,7 @@ class Scaffolding extends ProjectCore {
       config = '';
     }
     // 添加的初始化任务队列中
-    this.init.add(done => {
+    this.init.add((_, done) => {
       logger.info(`initing module ${ name }`);
 
       // 获取配置
@@ -261,7 +261,7 @@ class Scaffolding extends ProjectCore {
    */
   task(task, callback) {
     if (this.initing || this.inited) {
-      return this.run(task, callback);
+      return this.run(task, this, callback);
     }
     if (typeof task === 'function') {
       this.init.add(task);
@@ -285,6 +285,15 @@ class Scaffolding extends ProjectCore {
       logger.error('unhandledRejection', bunyan.stdSerializers.err(err));
     });
     logger.info('enable uncaughtException and unhandledRejection handler');
+  }
+
+  /**
+   * 初始化
+   *
+   * @param {Function} callback
+   */
+  init(callback) {
+    super.init(this, callback);
   }
 
 }
