@@ -34,7 +34,7 @@ exports.config = function fillDefaultConfig(config) {
     // 监听的地址
     hostname: '0.0.0.0',
     // http访问日志等级
-    logLevel: 'INFO',
+    logLevel: 'TRACE',
     // 静态资源文件路径前缀
     publicPrefix: '/public',
     // 静态资源文件目录
@@ -89,9 +89,13 @@ exports.init = function initExpressModule(ref, config, done) {
         err: bunyan.stdSerializers.err,
       },
     });
+    const level = config.logLevel.toLowerCase();
+    if (typeof logger[level] !== 'function') {
+      throw new Error(`invalid log level for express module: ${ config.logLevel }`);
+    }
     app.use((req, res, next) => {
       onFinished(res, () => {
-        logger.trace({ req, res });
+        logger[level]({ req, res });
       });
       next();
     });
