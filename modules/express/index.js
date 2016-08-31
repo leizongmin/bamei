@@ -138,10 +138,27 @@ exports.init = function initExpressModule(ref, config, done) {
       }
       return router[name];
     }
+    router[name] = new express.Router();
+    router[name].$$path = path;
+    app.use(path, router[name]);
+    return router[name];
+  };
+
+  // 注册async function的路由
+  const registerAsyncRouter = (name, path) => {
+    // eslint-disable-next-line
+    path = path || '/';
+    if (router[name]) {
+      if (router[name].$$path !== path) {
+        throw new Error(`register router conflict for "${ name }": new path is "${ path }", old path is "${ router[name].$$path }"`);
+      }
+      return router[name];
+    }
     router[name] = setRouterAsyncable(new express.Router());
     router[name].$$path = path;
     app.use(path, router[name]);
     return router[name];
+
   };
 
   // 获取路由
@@ -152,7 +169,7 @@ exports.init = function initExpressModule(ref, config, done) {
     return router[name];
   };
 
-  Object.assign(ref, { $ns: 'express', app, router, getRouter, registerRouter });
+  Object.assign(ref, { $ns: 'express', app, router, getRouter, registerRouter, registerAsyncRouter });
 
   // 如果 listen=true 则监听端口
   if (config.listen) {
