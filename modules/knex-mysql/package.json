@@ -1,6 +1,6 @@
 {
   "name": "bamei-module-knex-mysql",
-  "version": "0.0.8",
+  "version": "0.0.9",
   "description": "knex 支持，使用 mysql 存储",
   "main": "index.js",
   "scripts": {

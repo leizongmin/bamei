@@ -1,6 +1,6 @@
 {
   "name": "bamei-module-express-session-mongo",
-  "version": "0.0.8",
+  "version": "0.0.9",
   "description": "express 框架的 session 支持，使用 mongodb 存储",
   "main": "index.js",
   "scripts": {

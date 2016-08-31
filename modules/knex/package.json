@@ -1,6 +1,6 @@
 {
   "name": "bamei-module-knex",
-  "version": "0.0.8",
+  "version": "0.0.9",
   "description": "knex 支持，不能单独使用",
   "main": "index.js",
   "scripts": {
