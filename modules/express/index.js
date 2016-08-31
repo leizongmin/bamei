@@ -17,6 +17,7 @@ const expressValidator = require('express-validator');
 const onFinished = require('on-finished');
 const favicon = require('serve-favicon');
 const ejs = require('ejs');
+const methods = require('methods');
 
 // 版本号
 exports.version = JSON.parse(fs.readFileSync(path.resolve(__dirname, 'package.json')).toString()).version;
@@ -126,50 +127,42 @@ exports.init = function initExpressModule(ref, config, done) {
   }
 
   // 已注册的路由
-  const router = {};
+  const routerMap = {};
+
+  const checkAndRegisterRouter = (name, path, router) => {
+    // eslint-disable-next-line
+    path = path || '/';
+    if (routerMap[name]) {
+      if (routerMap[name].$$path !== path) {
+        throw new Error(`register router conflict for "${ name }": new path is "${ path }", old path is "${ routerMap[name].$$path }"`);
+      }
+      return routerMap[name];
+    }
+    routerMap[name] = router;
+    routerMap[name].$$path = path;
+    app.use(path, router);
+    return router;
+  };
 
   // 注册路由
   const registerRouter = (name, path) => {
-    // eslint-disable-next-line
-    path = path || '/';
-    if (router[name]) {
-      if (router[name].$$path !== path) {
-        throw new Error(`register router conflict for "${ name }": new path is "${ path }", old path is "${ router[name].$$path }"`);
-      }
-      return router[name];
-    }
-    router[name] = new express.Router();
-    router[name].$$path = path;
-    app.use(path, router[name]);
-    return router[name];
+    return checkAndRegisterRouter(name, path, new express.Router());
   };
 
-  // 注册async function的路由
+  // 注册支持 async function 的路由
   const registerAsyncRouter = (name, path) => {
-    // eslint-disable-next-line
-    path = path || '/';
-    if (router[name]) {
-      if (router[name].$$path !== path) {
-        throw new Error(`register router conflict for "${ name }": new path is "${ path }", old path is "${ router[name].$$path }"`);
-      }
-      return router[name];
-    }
-    router[name] = setRouterAsyncable(new express.Router());
-    router[name].$$path = path;
-    app.use(path, router[name]);
-    return router[name];
-
+    return checkAndRegisterRouter(name, path, wrapRouter(new express.Router()));
   };
 
   // 获取路由
   const getRouter = name => {
-    if (!router[name]) {
+    if (!routerMap[name]) {
       throw new Error(`router "${ name }" does not exists`);
     }
-    return router[name];
+    return routerMap[name];
   };
 
-  Object.assign(ref, { $ns: 'express', app, router, getRouter, registerRouter, registerAsyncRouter });
+  Object.assign(ref, { $ns: 'express', app, router: routerMap, getRouter, registerRouter, registerAsyncRouter });
 
   // 如果 listen=true 则监听端口
   if (config.listen) {
@@ -178,42 +171,52 @@ exports.init = function initExpressModule(ref, config, done) {
   }
 };
 
-// 返回一个支持async function中间件的router实例
-function setRouterAsyncable(router) {
-  const asyncMethod = [ 'post', 'get', 'put', 'delete', 'param', 'use', 'all' ];
-  for (const key in router) {
-    if (asyncMethod.indexOf(key) === -1) {
-      continue;
-    }
-    const fn = router[key];
-    router['__' + key] = fn;
-    router[key] = (function () {
-      const _key = key;
-      return function () {
-        const args = Array.prototype.slice.call(arguments).map(function (value) {
-          return value instanceof Function ? asyncMiddleware(value) : value;
-        });
-        this['__' + _key].apply(this, args);
+
+// 包装 router，使其所有注册的 handler 均可支持 async function
+function wrapRouter(router) {
+  // 所有的 HTTP 方法
+  methods.forEach(method => {
+    if (typeof router[method] === 'function') {
+      const originMethod = '__' + method;
+      router[originMethod] = router[method].bind(router);
+      router[method] = function (path, ...handlers) {
+        router[originMethod](path, ...handlers.map(wrapAsyncHandler));
       };
-    })();
-  }
+    }
+  });
+  // use 方法
+  router.__use = router.use.bind(router);
+  router.use = function (...handlers) {
+    router.__use(...handlers.map(wrapAsyncHandler));
+  };
   return router;
 }
 
-// 创建异步中间件,遇到reject错误或者throw错误,会自动捕获并且调用express的next(err)进行错误处理
-function asyncMiddleware(fn) {
+// 包装 handler，使其支持 async function
+function wrapAsyncHandler(fn) {
+  if (fn.length > 3) {
+    // error handler
+    return function (err, req, res, next) {
+      return callAndCatchPromiseError(fn, err, req, res, next);
+    };
+  }
   return function (req, res, next) {
-    const args = Array.prototype.slice.call(arguments);
-    let p = null;
-    try {
-      p = fn.apply(null, args) || {};
-    } catch (err) {
-      return next(err);
-    }
-    if (p.then && p.catch) {
-      p.catch(err => {
-        next(err);
-      });
-    }
+    return callAndCatchPromiseError(fn, req, res, next);
   };
+}
+
+// 调用 handler，并捕捉 Promise 的错误
+function callAndCatchPromiseError(fn, ...args) {
+  // args 最后一个参数如果是如果是 function 则表示 next()
+  // 如果执行时出错，调用 next(err)
+  const next = args[args.length - 1];
+  let p = null;
+  try {
+    p = fn.apply(null, args);
+  } catch (err) {
+    return next(err);
+  }
+  if (p && p.then && p.catch) {
+    p.catch(err => next(err));
+  }
 }
