@@ -144,6 +144,23 @@ exports.init = function initExpressModule(ref, config, done) {
     return router[name];
   };
 
+  // 注册async function的路由
+  const registerAsyncRouter = (name, path) => {
+    // eslint-disable-next-line
+    path = path || '/';
+    if (router[name]) {
+      if (router[name].$$path !== path) {
+        throw new Error(`register router conflict for "${ name }": new path is "${ path }", old path is "${ router[name].$$path }"`);
+      }
+      return router[name];
+    }
+    router[name] = setRouterAsyncable(new express.Router());
+    router[name].$$path = path;
+    app.use(path, router[name]);
+    return router[name];
+
+  };
+
   // 获取路由
   const getRouter = name => {
     if (!router[name]) {
@@ -152,7 +169,7 @@ exports.init = function initExpressModule(ref, config, done) {
     return router[name];
   };
 
-  Object.assign(ref, { $ns: 'express', app, router, getRouter, registerRouter });
+  Object.assign(ref, { $ns: 'express', app, router, getRouter, registerRouter, registerAsyncRouter });
 
   // 如果 listen=true 则监听端口
   if (config.listen) {
@@ -160,3 +177,43 @@ exports.init = function initExpressModule(ref, config, done) {
     app.listen(config.port, config.hostname, done);
   }
 };
+
+// 返回一个支持async function中间件的router实例
+function setRouterAsyncable(router) {
+  const asyncMethod = [ 'post', 'get', 'put', 'delete', 'param', 'use', 'all' ];
+  for (const key in router) {
+    if (asyncMethod.indexOf(key) === -1) {
+      continue;
+    }
+    const fn = router[key];
+    router['__' + key] = fn;
+    router[key] = (function () {
+      const _key = key;
+      return function () {
+        const args = Array.prototype.slice.call(arguments).map(function (value) {
+          return value instanceof Function ? asyncMiddleware(value) : value;
+        });
+        this['__' + _key].apply(this, args);
+      };
+    })();
+  }
+  return router;
+}
+
+// 创建异步中间件,遇到reject错误或者throw错误,会自动捕获并且调用express的next(err)进行错误处理
+function asyncMiddleware(fn) {
+  return function (req, res, next) {
+    const args = Array.prototype.slice.call(arguments);
+    let p = null;
+    try {
+      p = fn.apply(null, args) || {};
+    } catch (err) {
+      return next(err);
+    }
+    if (p.then && p.catch) {
+      p.catch(err => {
+        next(err);
+      });
+    }
+  };
+}
