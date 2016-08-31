@@ -9,7 +9,7 @@
 module.exports = function (ctx) {
 
   // 注册首页的路由
-  const router = ctx.get('express').registerRouter('home', '/');
+  const router = ctx.get('express').registerAsyncRouter('home', '/');
 
   // 设置当前登录用户
   function getLoginInfo(req, res, next) {

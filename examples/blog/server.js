@@ -36,7 +36,7 @@ module.exports = require('bamei').create(function (ctx) {
     ctx.get('express.app').use(function pageError(err, req, res, _next) {
       res.render('error', {
         error: {
-          message: err.message,
+          message: err.message || String(err),
           stack: utils.replaceRealPath(err.stack),
         },
       });
