@@ -129,29 +129,39 @@ exports.init = function initExpressModule(ref, config, done) {
   // 已注册的路由
   const routerMap = {};
 
-  const checkAndRegisterRouter = (name, path, router) => {
+  const checkAndRegisterRouter = (name, path, isAsync = false) => {
     // eslint-disable-next-line
     path = path || '/';
     if (routerMap[name]) {
-      if (routerMap[name].$$path !== path) {
-        throw new Error(`register router conflict for "${ name }": new path is "${ path }", old path is "${ routerMap[name].$$path }"`);
+      const router = routerMap[name];
+      if (router.$$path !== path) {
+        throw new Error(`register router conflict for "${ name }": new path is "${ path }", old path is "${ router.$$path }"`);
       }
-      return routerMap[name];
+      if (router.$$isAsync !== isAsync) {
+        throw new Error(`register router conflict for "${ name }": new isAsync=${ isAsync }, old isAsync=${ router.$$isAsync }`);
+      }
+      return router;
     }
+
+    let router = new express.Router();
+    router.$$path = path;
+    router.$$isAsync = isAsync;
+    if (isAsync) router = wrapRouter(router);
+
     routerMap[name] = router;
-    routerMap[name].$$path = path;
     app.use(path, router);
+
     return router;
   };
 
   // 注册路由
   const registerRouter = (name, path) => {
-    return checkAndRegisterRouter(name, path, new express.Router());
+    return checkAndRegisterRouter(name, path, false);
   };
 
   // 注册支持 async function 的路由
   const registerAsyncRouter = (name, path) => {
-    return checkAndRegisterRouter(name, path, wrapRouter(new express.Router()));
+    return checkAndRegisterRouter(name, path, true);
   };
 
   // 获取路由
