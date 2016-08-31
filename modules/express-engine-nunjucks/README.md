@@ -16,6 +16,8 @@
 
 express 框架使用 nunjucks 模板引擎
 
+**本项目需要在 Node.js v6.0 或更高版本上运行**
+
 ## 安装
 
 ```bash

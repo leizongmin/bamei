@@ -16,6 +16,8 @@
 
 express 框架的 session 支持，使用 memcached 存储
 
+**本项目需要在 Node.js v6.0 或更高版本上运行**
+
 ## 安装
 
 ```bash
