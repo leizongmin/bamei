@@ -1,5 +1,6 @@
-# 最简易的bamei框架用法
+# Redis Demo
 
+一个基于redis的计数器
 
 ## 安装
 
@@ -18,7 +19,7 @@ $ node server.js
 打开页面：
 
 ```
-http://127.0.0.1:4000
+http://127.0.0.1:4000/counter?name=bamei&number=2&width=9
 ```
 
 
