@@ -184,34 +184,40 @@ exports.init = function initExpressModule(ref, config, done) {
 
 // 包装 router，使其所有注册的 handler 均可支持 async function
 function wrapRouter(router) {
-  // 所有的 HTTP 方法
-  methods.forEach(method => {
+  // 所有的 HTTP 方法和一些特殊方法
+  methods.concat([ 'use', 'all', 'param' ]).forEach(method => {
     if (typeof router[method] === 'function') {
       const originMethod = '__' + method;
       router[originMethod] = router[method].bind(router);
-      router[method] = function (path, ...handlers) {
-        router[originMethod](path, ...handlers.map(wrapAsyncHandler));
+      router[method] = function (...handlers) {
+        router[originMethod](...handlers.map(fn => wrapAsyncHandler(fn, method !== 'param')));
       };
     }
   });
-  // use 方法
-  router.__use = router.use.bind(router);
-  router.use = function (...handlers) {
-    router.__use(...handlers.map(wrapAsyncHandler));
-  };
+  // 如果有 route 方法则封装
+  if (typeof router.route === 'function') {
+    router.__route = router.route.bind(router);
+    router.route = function (...args) {
+      return wrapRouter(router.__route(...args));
+    };
+  }
   return router;
 }
 
 // 包装 handler，使其支持 async function
-function wrapAsyncHandler(fn) {
-  if (fn.length > 3) {
+// 如果不是一个 function 则返回原来的值
+function wrapAsyncHandler(fn, withErrorParam = true) {
+  if (typeof fn !== 'function') return fn;
+  if (withErrorParam && fn.length > 3) {
     // error handler
+    // eslint-disable-next-line
     return function (err, req, res, next) {
-      return callAndCatchPromiseError(fn, err, req, res, next);
+      return callAndCatchPromiseError(fn, ...toArray(arguments));
     };
   }
+  // eslint-disable-next-line
   return function (req, res, next) {
-    return callAndCatchPromiseError(fn, req, res, next);
+    return callAndCatchPromiseError(fn, ...toArray(arguments));
   };
 }
 
@@ -229,4 +235,9 @@ function callAndCatchPromiseError(fn, ...args) {
   if (p && p.then && p.catch) {
     p.catch(err => next(err));
   }
+}
+
+// 将 arguments 转成 array
+function toArray(args) {
+  return Array.prototype.slice.call(args);
 }
