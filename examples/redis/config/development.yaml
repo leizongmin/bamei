@@ -1,0 +1,5 @@
+logger:
+  init:
+    level: TRACE
+  http:
+    level: TRACE
