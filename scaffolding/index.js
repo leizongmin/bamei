@@ -242,7 +242,7 @@ class Scaffolding extends ProjectCore {
         // init done 回调
         const callDone = err => {
           if (err) {
-            logger.error(`initing module ${ name }@${ module.version } fail`, bunyan.stdSerializers.err(err));
+            logger.error(`initing module ${ name }@${ module.version } fail`, err);
           } else {
             logger.trace(`initing module ${ name }@${ module.version } success`);
             this._loadedModules[name] = true;
@@ -318,10 +318,10 @@ class Scaffolding extends ProjectCore {
   catchError() {
     const logger = this.getLogger('process');
     process.on('uncaughtException', err => {
-      logger.error('uncaughtException', bunyan.stdSerializers.err(err));
+      logger.error('uncaughtException', err);
     });
     process.on('unhandledRejection', err => {
-      logger.error('unhandledRejection', bunyan.stdSerializers.err(err));
+      logger.error('unhandledRejection', err);
     });
     logger.info('enable uncaughtException and unhandledRejection handler');
   }
