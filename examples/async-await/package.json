@@ -1,0 +1,23 @@
+{
+  "name": "async-await",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "export NODE_ENV=development && node ./src/server.js",
+    "eslint": "eslint src --fix",
+    "publish": "babel src --out-dir release && cp -Rf config release/"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "bamei": "0.0.10",
+    "bamei-module-express": "0.0.10",
+    "source-map-support": "^0.4.2"
+  },
+  "devDependencies": {
+    "babel-plugin-transform-async-to-generator": "^6.8.0",
+    "babel-register": "^6.14.0"
+  }
+}
