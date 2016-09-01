@@ -21,6 +21,7 @@
 + 示例项目 - 用于演示`bamei`框架的使用方法 - [详细文档](https://github.com/leizongmin/bamei/tree/master/examples)
   + [最简单的 hello world 例子](https://github.com/leizongmin/bamei/tree/master/examples/tiny)
   + [一个简单的个人博客系统](https://github.com/leizongmin/bamei/tree/master/examples/blog)
+  + [async/await例子](https://github.com/leizongmin/bamei/tree/master/examples/async-await)
 + 脚手架项目（快速入门）- [详细文档](https://github.com/leizongmin/bamei/tree/master/scaffolding)
 + 项目代码生成器 - [详细文档](https://github.com/leizongmin/bamei/tree/master/generator)
 + 支持的模块列表 - [详细文档](https://github.com/leizongmin/bamei/tree/master/modules)
