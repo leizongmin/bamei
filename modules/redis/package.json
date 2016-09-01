@@ -1,6 +1,6 @@
 {
   "name": "bamei-module-redis",
-  "version": "0.0.9",
+  "version": "0.0.10",
   "description": "redis 客户端",
   "main": "index.js",
   "scripts": {

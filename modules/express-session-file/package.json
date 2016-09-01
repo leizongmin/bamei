@@ -1,6 +1,6 @@
 {
   "name": "bamei-module-express-session-file",
-  "version": "0.0.9",
+  "version": "0.0.10",
   "description": "express 框架的 session 支持，使用文件存储",
   "main": "index.js",
   "scripts": {
