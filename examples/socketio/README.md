@@ -1,4 +1,4 @@
-# 最简易的bamei框架用法
+# socket.io示例
 
 
 ## 安装
@@ -9,16 +9,16 @@
 $ npm install
 ```
 
-启动程序：
+启动服务端程序：
 
 ```bash
 $ node server.js
 ```
 
-打开页面：
+启动客户端程序：
 
-```
-http://127.0.0.1:4000
+```bash
+$ node client.js
 ```
 
 
