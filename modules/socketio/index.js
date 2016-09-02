@@ -8,12 +8,15 @@
 
 const fs = require('fs');
 const path = require('path');
+const socketio = require('socket.io');
 
 // 版本号
 exports.version = JSON.parse(fs.readFileSync(path.resolve(__dirname, 'package.json')).toString()).version;
 
 // 依赖模块
-exports.dependencies = {};
+exports.dependencies = {
+  'express': '*',
+};
 
 // 填充默认配置
 exports.config = function fillDefaultConfig(config) {
@@ -30,9 +33,10 @@ exports.init = function initSocketioModule(ref, config, done) {
   config = exports.config.call(this, config);
   this.getLogger('init').info('initSocketioModule config: %j', config);
 
-  const client = { message: 'hello, world' };
+  const http = this.get('express.http');
+  const io = socketio(http);
 
-  Object.assign(ref, { $ns: 'socketio', client });
+  Object.assign(ref, { $ns: 'socketio', io });
 
   done();
 
