@@ -177,7 +177,8 @@ exports.init = function initExpressModule(ref, config, done) {
   // 如果 listen=true 则监听端口
   if (config.listen) {
     this.getLogger('init').trace('initExpressModule listen: %s:%s', config.hostname, config.port);
-    app.listen(config.port, config.hostname, done);
+    const http = app.listen(config.port, config.hostname, done);
+    Object.assign(ref, { http });
   }
 };
 
