@@ -1,7 +1,8 @@
-const socket = require('socket.io-client')('http://127.0.0.1:4000/myNameSpace');
+const socket = require('socket.io-client')('http://127.0.0.1:4000/');
 const readline = require('readline');
-socket.on('connect', function (){
 
+socket.on('connect', function (s){
+  console.log(s);
 });
 socket.on('event', function (data){
   console.log(data);
