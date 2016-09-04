@@ -1,5 +1,7 @@
 'use strict';
 
+const path = require('path');
+
 module.exports = function (ctx) {
 
   const io = ctx.get('socketio.io');
@@ -21,4 +23,19 @@ module.exports = function (ctx) {
       console.log(`receive message: ${ data }`);
     });
   });
+
+  const router = ctx.get('express').registerRouter('index', '/');
+
+  const render = (req, res) => {
+    res.render('index', {
+      'controllers': [
+        '/public/controllers/index.js'
+      ],
+      'routes': [
+        '/public/routes/index.js'
+      ]
+    });
+  };
+
+  router.get('/', render);
 };
