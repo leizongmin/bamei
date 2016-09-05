@@ -12,13 +12,19 @@ app.controller('MainController', function ($scope) {
   var socket = io.connect('http://127.0.0.1:4000/' + $scope.room);
   socket.on('chat', function (data) {
     $scope.$apply(function () {
-      $scope.chat.message.push(data.data);
+      console.log(data);
+      data.time = new Date();
+      $scope.chat.message.push(data);
     });
   });
 
   $scope.sendMessage = function () {
     socket.emit('chat', $scope.chat.data);
-    $scope.chat.message.push(angular.copy($scope.chat.data));
+    var data = {};
+    data.data = angular.copy($scope.chat.data)
+    data.time = new Date();
+    data.id = 'self';
+    $scope.chat.message.push(data);
     $scope.chat.data = '';
   };
   

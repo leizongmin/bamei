@@ -21,9 +21,9 @@
     <div flex layout="column">
         <div flex layout="row">
             <md-content flex layout="row">
-                <div>
+                <div layout-padding>
                     <div ng-repeat="line in chat.message track by $index"">
-                        {{line}}
+                        [{{line.time | date : 'HH:mm:ss'}}][{{line.id | limitTo:6:0}}] - {{line.data}}
                     </div>
                 </div>
             </md-content>
