@@ -9,11 +9,11 @@
   },
   "author": "Gu Yuteng <igyteng@gmail.com>",
   "license": "MIT",
-  "devDependencies": {
-  },
+  "devDependencies": {},
   "dependencies": {
     "bamei": "latest",
     "bamei-module-express": "latest",
+    "ejs": "^2.5.1",
     "socket.io": "latest",
     "socket.io-client": "latest"
   }
