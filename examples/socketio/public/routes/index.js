@@ -5,15 +5,9 @@ app.config(
     function($stateProvider, $urlRouterProvider, $locationProvider) {
       // $locationProvider.html5Mode(true);
       $urlRouterProvider
-      // .when('/', '/home/index')
-        .otherwise('/');
+        .otherwise('/default');
 
       $stateProvider
-        .state('index', {
-          url: '/',
-          controller: 'IndexController',
-          templateUrl: '/public/views/index.html',
-        })
         .state('chat', {
           url: '/:room',
           controller: 'ChatController',
