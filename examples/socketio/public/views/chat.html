@@ -1,8 +1,8 @@
-<div layout="column" layout-fill>
+<!-- <div layout="column" layout-fill>
     <div flex="90">
         <md-content flex layout-padding>
             <div>
-                <div ng-repeat="line in chat.message">
+                <div ng-repeat="line in chat.message track by $index"">
                     {{line}}
                 </div>
             </div>
@@ -10,8 +10,34 @@
     </div>
     <div flex="10">
       <md-input-container>
-<!--         <label>Title</label> -->
         <input ng-model="chat.data" ng-keypress="enterKeypress($event)">
       </md-input-container>
     </div>
+</div> -->
+
+
+<div layout="column" ng-cloak layout-fill>
+    <section layout="row" flex>
+    <div flex layout="column">
+        <div flex layout="row">
+            <md-content flex layout="row">
+                <div>
+                    <div ng-repeat="line in chat.message track by $index"">
+                        {{line}}
+                    </div>
+                </div>
+            </md-content>
+        </div>
+        <div>
+            <md-toolbar>
+                <div class="md-toolbar-tools">
+                    <md-input-container class="toolbar-input" flex>
+                        <input ng-model="chat.data" ng-keypress="enterKeypress($event)">
+                    </md-input-container>
+                </div>
+            </md-toolbar>
+        </div>
+    </div>
+    </section>
 </div>
+
