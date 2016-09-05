@@ -22,7 +22,7 @@ module.exports = function (ctx) {
     nsp.on('connection', socket => {
       console.log(`new connection, namespace: ${ socket.nsp.name }, id: ${ socket.conn.id }`);
       rooms[nameSpace] = true;
-      socket.emit('chat', `hello ${ socket.conn.id }`);
+      // socket.emit('chat', `hello ${ socket.conn.id }`);
       socket.on('chat', data => {
         console.log(`receive message: ${ data }`);
         broadcast(socket, { id: socket.conn.id, data });

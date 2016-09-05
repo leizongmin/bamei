@@ -1,6 +1,12 @@
 <div layout="column" layout-fill>
     <div flex="90">
-        <md-content flex layout-padding>123</md-content>
+        <md-content flex layout-padding>
+            <div>
+                <div ng-repeat="line in chat.message">
+                    {{line}}
+                </div>
+            </div>
+        </md-content>
     </div>
     <div flex="10">
       <md-input-container>
