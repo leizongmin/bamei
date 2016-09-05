@@ -2,27 +2,34 @@ app.controller('MainController', function ($scope) {
 
 }).controller('IndexController', function ($scope) {
 
-}).controller('ChatController', function ($scope, $state, $stateParams) {
+}).controller('ChatController', function ($scope, $state, $stateParams, $location, $anchorScroll) {
   $scope.chat = {
     data: '',
     message: [],
   };
   $scope.room = $stateParams.room;
 
+  var scrollBottom = function () {
+    $location.hash('bottom');
+    $anchorScroll();
+  };
+
   var socket;
 
   var connectToRoom = function () {
-    socket = io.connect('http://127.0.0.1:4000/' + $scope.room);
+    socket = io.connect('/' + $scope.room);
     socket.on('chat', function (data) {
       $scope.$apply(function () {
         data.time = new Date();
         $scope.chat.message.push(data);
+        scrollBottom();
       });
     });
   };
 
   $scope.sendMessage = function () {
     if(!socket) {return;}
+    if(!$scope.chat.data) {return;}
     socket.emit('chat', $scope.chat.data);
     var data = {};
     data.data = angular.copy($scope.chat.data)
@@ -30,6 +37,7 @@ app.controller('MainController', function ($scope) {
     data.id = 'self';
     $scope.chat.message.push(data);
     $scope.chat.data = '';
+    scrollBottom();
   };
   
   $scope.enterKeypress = function (e) {
@@ -38,7 +46,7 @@ app.controller('MainController', function ($scope) {
     }
   };
 
-  var createRoom = io.connect('http://127.0.0.1:4000');
+  var createRoom = io.connect('/');
   createRoom.on('connect', function() {
     createRoom.emit('bamei', {room: $scope.room});
     createRoom.on('bamei', function(data) {

@@ -25,6 +25,7 @@
                     <div ng-repeat="line in chat.message track by $index"">
                         [{{line.time | date : 'HH:mm:ss'}}][{{line.id | limitTo:6:0}}] - {{line.data}}
                     </div>
+                    <div id="bottom"></div>
                 </div>
             </md-content>
         </div>
