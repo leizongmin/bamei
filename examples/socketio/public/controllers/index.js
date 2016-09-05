@@ -1,8 +1,19 @@
-app.controller('MainController', function($scope) {
+app.controller('MainController', function ($scope) {
 
-}).controller('IndexController', function($scope) {
+}).controller('IndexController', function ($scope) {
 
-}).controller('ChatController', function($scope, $state, $stateParams) {
+}).controller('ChatController', function ($scope, $state, $stateParams) {
+  $scope.chat = {};
   $scope.room = $stateParams.room;
-  console.log('room: ' + $scope.room);
+
+  $scope.sendMessage = function () {
+    console.log($scope.chat.data);
+    $scope.chat.data = '';
+  };
+  
+  $scope.enterKeypress = function (e) {
+    if(e.keyCode === 13) {
+        $scope.sendMessage();
+    }
+  };
 });

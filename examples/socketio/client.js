@@ -1,14 +1,17 @@
-const socket = require('socket.io-client')('http://127.0.0.1:4000/');
+const socket = require('socket.io-client')('http://127.0.0.1:4000/aaa');
 const readline = require('readline');
 
-socket.on('connect', function (s){
-  console.log(s);
+const s = require('socket.io-client')('http://127.0.0.1:4000/');
+s.emit('bamei', { room: 'aaa' });
+
+socket.on('connect', function (){
+  // console.log(s);
 });
 socket.on('event', function (data){
   console.log(data);
 });
 
-socket.on('bamei', function (data){
+socket.on('chat', function (data){
   console.log(data);
 });
 
@@ -23,7 +26,7 @@ const rl = readline.createInterface({
 
 const recursiveAsyncReadLine = function () {
   rl.question('', function (answer) {
-    socket.emit('bamei', answer);
+    socket.emit('chat', answer);
     recursiveAsyncReadLine();
   });
 };
