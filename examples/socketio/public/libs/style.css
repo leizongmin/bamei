@@ -1,0 +1,10 @@
+.toolbar-input {
+  margin: 0px;
+}
+
+.toolbar-input > input {
+  color: #FFF;
+}
+.toolbar-input > .md-errors-spacer {
+  min-height: 0px;
+}

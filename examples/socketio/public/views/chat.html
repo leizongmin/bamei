@@ -1,17 +1,26 @@
-<div layout="column" layout-fill>
-    <div flex="90">
-        <md-content flex layout-padding>
-            <div>
-                <div ng-repeat="line in chat.message">
-                    {{line}}
+<div layout="column" ng-cloak layout-fill>
+    <section layout="row" flex>
+    <div flex layout="column">
+        <div flex layout="row">
+            <md-content flex layout="row">
+                <div layout-padding>
+                    <div ng-repeat="line in chat.message track by $index"">
+                        [{{line.time | date : 'HH:mm:ss'}}][{{line.id | limitTo:6:0}}] - {{line.data}}
+                    </div>
+                    <div id="bottom"></div>
                 </div>
-            </div>
-        </md-content>
+            </md-content>
+        </div>
+        <div>
+            <md-toolbar>
+                <div class="md-toolbar-tools">
+                    <md-input-container class="toolbar-input" flex>
+                        <input ng-model="chat.data" ng-keypress="enterKeypress($event)" aria-label="chat">
+                    </md-input-container>
+                </div>
+            </md-toolbar>
+        </div>
     </div>
-    <div flex="10">
-      <md-input-container>
-<!--         <label>Title</label> -->
-        <input ng-model="chat.data" ng-keypress="enterKeypress($event)">
-      </md-input-container>
-    </div>
+    </section>
 </div>
+

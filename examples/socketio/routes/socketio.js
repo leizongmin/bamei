@@ -22,7 +22,6 @@ module.exports = function (ctx) {
     nsp.on('connection', socket => {
       console.log(`new connection, namespace: ${ socket.nsp.name }, id: ${ socket.conn.id }`);
       rooms[nameSpace] = true;
-      // socket.emit('chat', `hello ${ socket.conn.id }`);
       socket.on('chat', data => {
         console.log(`receive message: ${ data }`);
         broadcast(socket, { id: socket.conn.id, data });
@@ -32,12 +31,13 @@ module.exports = function (ctx) {
 
 
   io.on('connection', socket => {
-    // console.log(`new connection, namespace: ${ socket.nsp.name }, id: ${ socket.conn.id }`);
+    console.log(`new connection, namespace: ${ socket.nsp.name }, id: ${ socket.conn.id }`);
     // socket.emit('bamei', `hello ${ socket.conn.id }`);
     socket.on('bamei', data => {
       // console.log(`receive message: ${ data }`);
       if(data.room) {
         createNameSpace(data.room);
+        socket.emit('bamei', 'success');
       }
     });
   });
