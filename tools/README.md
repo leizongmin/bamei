@@ -67,15 +67,13 @@ exports.init = function initMyAbcModule(ref, config, done) {
 
 执行该命令后会根据各个模块的代码自动更新其`README.md`文件。
 
-## 3、更新模块版本号
+## 3、更新模块版本号（仅项目管理员操作）
 
 根据`scaffolding`项目的版本号，自动统一更新`modules`目录下各个模块的版本号。
 
-## 4、发布所有模块
+## 4、发布所有模块（仅项目管理员操作）
 
 自动发布`scaffolding`和`modules`目录下的所有模块到 NPM 上。
-
-**为避免混乱，只能由本项目的管理员操作。**
 
 ## License
 

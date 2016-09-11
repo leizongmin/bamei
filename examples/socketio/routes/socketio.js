@@ -1,7 +1,5 @@
 'use strict';
 
-const path = require('path');
-
 module.exports = function (ctx) {
 
   const io = ctx.get('socketio.io');

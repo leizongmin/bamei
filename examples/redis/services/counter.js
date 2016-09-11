@@ -8,7 +8,7 @@ module.exports = function (ctx) {
       redis.incrby('coun:' + name, number)
       .then(success => {
         const max = Math.pow(10, width);
-        res(( (new Array(width).join(0)) + success % max ).slice(0 - width));
+        res(((new Array(width).join(0)) + success % max).slice(0 - width));
       }, error => {
         rej(error);
       });

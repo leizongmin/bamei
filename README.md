@@ -21,11 +21,38 @@
 + 示例项目 - 用于演示`bamei`框架的使用方法 - [详细文档](https://github.com/leizongmin/bamei/tree/master/examples)
   + [最简单的 hello world 例子](https://github.com/leizongmin/bamei/tree/master/examples/tiny)
   + [一个简单的个人博客系统](https://github.com/leizongmin/bamei/tree/master/examples/blog)
-  + [async/await例子](https://github.com/leizongmin/bamei/tree/master/examples/async-await)
+  + [async/await 例子](https://github.com/leizongmin/bamei/tree/master/examples/async-await)
 + 脚手架项目（快速入门）- [详细文档](https://github.com/leizongmin/bamei/tree/master/scaffolding)
 + 项目代码生成器 - [详细文档](https://github.com/leizongmin/bamei/tree/master/generator)
 + 支持的模块列表 - [详细文档](https://github.com/leizongmin/bamei/tree/master/modules)
 + 开发辅助工具 - [详细文档](https://github.com/leizongmin/bamei/tree/master/tools)
+
+## 如何成为贡献者
+
+**bamei**是一个自由、开放的 Node.js 开发框架，任何人都可以在其之上构建适用于自己项目的模块。
+如果您希望在**bamei**中加入自己的修改，欢迎提交**pull request**或者**issue**。
+
+为了维护项目的整体规范，在提交代码前需要注意以下几点：
+
++ 所有代码必须通过**eslint**检查（使用配置`eslint-config-lei`，不能有任何`error`级别的报告项）
++ 对已有接口的修改需要**先提交issue**讨论确定后再提交pull request
++ 使用**开发辅助工具**来创建新的模块模板，详情参考文档：[开发辅助工具](https://github.com/leizongmin/bamei/tree/master/tools)
+
+### 执行 eslint 检查
+
+首先在全局安装`eslint`及`eslint-config-lei`：
+
+```bash
+$ npm install -g eslint eslint-config-lei
+```
+
+再执行`eslint`：
+
+```bash
+$ eslint . --fix
+```
+
+（可以将`.`换成自己所修改的文件或目录，比如`eslint modules/my-module --fix`）
 
 ## License
 
