@@ -7,23 +7,28 @@ bamei 脚手架
 ```javascript
 'use strict';
 
-module.exports = require('bamei').create(function () {
+module.exports = require('bamei').create(function (ctx) {
 
   // 初始化模块
-  this.module('express');
-  this.module('express-session-redis');
-  this.module('express-engine-nunjucks');
-  this.module('mysql');
-  this.module('redis');
+  ctx.module('express');
+  ctx.module('express-session-redis');
+  ctx.module('express-engine-nunjucks');
+  ctx.module('mysql');
+  ctx.module('redis');
 
-  this.init(err => {
+  // 载入初始化的文件或目录（如果是目录则表示其下的所有文件，包括子目录）
+  ctx.task('./models');
+  ctx.task('./init/counter.js');
+
+  // 开始执行初始化
+  ctx.init(err => {
     if (err) throw err;
 
     // 开启全局错误捕获
-    this.catchError();
+    ctx.catchError();
 
-    console.log(this.config.all());
-    this.getLogger('init').info('server started');
+    console.log(ctx.config.all());
+    ctx.getLogger('init').info('server started');
   });
 });
 ```
