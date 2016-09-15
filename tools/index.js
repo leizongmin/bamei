@@ -39,6 +39,10 @@ if (process.argv[2]) {
         value: 'install-dependencies',
       },
       {
+        name: '代码格式化（eslint）',
+        value: 'eslint',
+      },
+      {
         name: '退出 ^C',
         value: 'exit',
       },
