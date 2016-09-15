@@ -9,6 +9,10 @@
 const colors = require('colors');
 const inquirer = require('inquirer');
 
+if (process.argv[2]) {
+  return runCommand(process.argv[2]);
+}
+
 const questions = [{
   type: 'list',
   name: 'command',
@@ -31,6 +35,10 @@ const questions = [{
       value: 'publish-all',
     },
     {
+      name: '初始化开发环境（安装依赖模块）',
+      value: 'install-dependencies',
+    },
+    {
       name: '退出 ^C',
       value: 'exit',
     },
@@ -39,7 +47,11 @@ const questions = [{
 
 inquirer.prompt(questions).then(answers => {
   if (answers.command === 'exit') return;
-  require(`./commands/${ answers.command }`);
+  runCommand(answers.command);
 }).catch(err => {
   console.error(colors.red(err.stack));
 });
+
+function runCommand(command) {
+  require(`./commands/${ command }`);
+}

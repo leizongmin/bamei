@@ -38,6 +38,16 @@
 + 对已有接口的修改需要**先提交issue**讨论确定后再提交pull request
 + 使用**开发辅助工具**来创建新的模块模板，详情参考文档：[开发辅助工具](https://github.com/leizongmin/bamei/tree/master/tools)
 
+### 初始化本地开发环境
+
+在项目根目录下执行`setup.js`初始化：
+
+```bash
+$ node setup
+```
+
+稍等几分钟，初始化程序会自动为本项目下的所有子模块安装依赖（使用**CNPM**镜像）。
+
 ### 执行 eslint 检查
 
 首先在全局安装`eslint`及`eslint-config-lei`：
