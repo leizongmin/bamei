@@ -1,0 +1,29 @@
+{
+  "name": "@leizongmin/bamei",
+  "version": "0.0.0",
+  "description": "bamei workspace",
+  "main": "setup.js",
+  "directories": {
+    "example": "examples"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "babel-eslint": "^6.1.2",
+    "eslint": "^3.5.0",
+    "eslint-config-lei": "0.0.7"
+  },
+  "scripts": {
+    "setup": "node setup",
+    "tools": "node tools"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/leizongmin/bamei.git"
+  },
+  "author": "Zongmin Lei <leizongmin@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/leizongmin/bamei/issues"
+  },
+  "homepage": "https://github.com/leizongmin/bamei#readme"
+}

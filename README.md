@@ -40,29 +40,22 @@
 
 ### 初始化本地开发环境
 
-在项目根目录下执行`setup.js`初始化：
+在项目根目录下执行以下命令完成初始化：
 
 ```bash
-$ node setup
+$ npm install --registry=https://registry.npm.taobao.org
+$ npm run setup
 ```
 
 稍等几分钟，初始化程序会自动为本项目下的所有子模块安装依赖（使用**CNPM**镜像）。
 
 ### 执行 eslint 检查
 
-首先在全局安装`eslint`及`eslint-config-lei`：
+在项目根目录下执行以下命令：
 
 ```bash
-$ npm install -g eslint eslint-config-lei
+$ node tools eslint
 ```
-
-再执行`eslint`：
-
-```bash
-$ eslint . --fix
-```
-
-（可以将`.`换成自己所修改的文件或目录，比如`eslint modules/my-module --fix`）
 
 ## License
 

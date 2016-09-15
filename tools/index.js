@@ -19,6 +19,10 @@ if (process.argv[2]) {
     message: '选择要执行的命令',
     choices: [
       {
+        name: '代码格式化（eslint）',
+        value: 'eslint',
+      },
+      {
         name: '创建新的模块',
         value: 'new-module',
       },
@@ -37,10 +41,6 @@ if (process.argv[2]) {
       {
         name: '初始化开发环境（安装依赖模块）',
         value: 'install-dependencies',
-      },
-      {
-        name: '代码格式化（eslint）',
-        value: 'eslint',
       },
       {
         name: '退出 ^C',
