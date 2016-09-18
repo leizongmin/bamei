@@ -1,6 +1,6 @@
 {
   "name": "bamei-module-express-engine-nunjucks",
-  "version": "0.0.11",
+  "version": "0.0.12",
   "description": "express 框架使用 nunjucks 模板引擎",
   "main": "index.js",
   "scripts": {
