@@ -43,6 +43,10 @@ if (process.argv[2]) {
         value: 'install-dependencies',
       },
       {
+        name: '清理node_modules',
+        value: 'clean',
+      },
+      {
         name: '退出 ^C',
         value: 'exit',
       },
