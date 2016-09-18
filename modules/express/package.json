@@ -19,8 +19,8 @@
     "cookie-parser": "^1.4.3",
     "ejs": "^2.5.1",
     "express": "^4.14.0",
+    "express-router-async-support": "^1.0.0",
     "express-validator": "^2.20.8",
-    "methods": "^1.1.2",
     "on-finished": "^2.3.0",
     "serve-favicon": "^2.3.0"
   }
