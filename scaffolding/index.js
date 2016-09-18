@@ -166,6 +166,7 @@ class Scaffolding extends ProjectCore {
         assert.equal(typeof ret.module.init, 'function', `no init() function found in module "${ name }"`);
         return true;
       } catch (err) {
+        console.error(err);
         if (!isModuleNotFoundError(err)) {
           throw err;
         }
