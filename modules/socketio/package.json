@@ -1,6 +1,6 @@
 {
   "name": "bamei-module-socketio",
-  "version": "0.0.0",
+  "version": "0.0.11",
   "description": "bamei-module-socketio",
   "main": "index.js",
   "scripts": {

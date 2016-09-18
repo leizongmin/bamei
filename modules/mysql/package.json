@@ -1,6 +1,6 @@
 {
   "name": "bamei-module-mysql",
-  "version": "0.0.10",
+  "version": "0.0.11",
   "description": "mysql 客户端",
   "main": "index.js",
   "scripts": {
