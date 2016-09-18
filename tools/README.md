@@ -86,6 +86,10 @@ exports.init = function initMyAbcModule(ref, config, done) {
 
 在本地开发`bamei`项目时执行此命令初始化。
 
+## 清理node_modules
+
+如果本地`node_modules`目录出现问题，可以执行此命令清理`node_modules`目录，再执行`初始化开发环境（安装依赖模块）`重新初始化。
+
 ## License
 
 ```
