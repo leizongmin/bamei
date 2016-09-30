@@ -9,7 +9,7 @@
   "dependencies": {},
   "devDependencies": {
     "babel-eslint": "^6.1.2",
-    "eslint": "^3.5.0",
+    "eslint": "^3.7.0",
     "eslint-config-lei": "0.0.8"
   },
   "scripts": {
