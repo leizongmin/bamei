@@ -288,7 +288,7 @@ class Scaffolding extends ProjectCore {
    * @param {String} version
    * @return {Boolean}
    */
-  _checkLoadedModule(name, _version) {
+  _checkLoadedModule(name, version) {
     // TODO: 目前不需要检查版本号
     return !!this._loadedModules[name];
   }
@@ -301,7 +301,8 @@ class Scaffolding extends ProjectCore {
    */
   task(task, callback) {
     if (this.initing || this.inited) {
-      return this.run(task, this, callback);
+      this.run(task, this, callback);
+      return;
     }
     if (typeof task === 'function') {
       this.init.add(task);

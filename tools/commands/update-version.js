@@ -122,7 +122,7 @@ function updateVersion(version) {
       },
     ],
   }];
-  inquirer.prompt(questions).then(answers => {
+  return inquirer.prompt(questions).then(answers => {
     if (answers.publish) {
       require('./publish-all');
     } else {

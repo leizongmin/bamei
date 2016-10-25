@@ -15,7 +15,7 @@ module.exports = function (ctx) {
   });
 
   function delayMsg(text) {
-    return new Promise((resolve, _reject) => {
+    return new Promise((resolve, reject) => {
       setTimeout(() => {
         resolve(text);
       }, 2000);
@@ -29,7 +29,7 @@ module.exports = function (ctx) {
   });
 
   function delayError() {
-    return new Promise((_resolve, reject) => {
+    return new Promise((resolve, reject) => {
       setTimeout(() => {
         reject(new Error('MyError'));
       });

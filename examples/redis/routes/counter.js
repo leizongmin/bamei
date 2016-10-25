@@ -11,7 +11,7 @@ module.exports = function (ctx) {
     const width = req.query.width;
     counter(name, +number, +width).then(success => {
       res.send(success);
-    }, error => {
+    }).catch(error => {
       res.send(error);
     });
   });
