@@ -10,9 +10,11 @@
   "devDependencies": {
     "babel-eslint": "^7.0.0",
     "eslint": "^3.8.1",
-    "eslint-config-lei": "0.0.14"
+    "eslint-config-lei": "0.0.14",
+    "eslint-plugin-promise": "^3.3.0"
   },
   "scripts": {
+    "postinstall": "npm run setup",
     "setup": "node setup",
     "tools": "node tools"
   },
