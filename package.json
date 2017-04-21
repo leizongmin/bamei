@@ -8,7 +8,7 @@
   },
   "dependencies": {},
   "devDependencies": {
-    "babel-eslint": "^7.0.0",
+    "babel-eslint": "^7.2.3",
     "eslint": "^3.8.1",
     "eslint-config-lei": "0.0.14",
     "eslint-plugin-promise": "^3.3.0"
