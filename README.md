@@ -1,5 +1,7 @@
 # 简易 Node.js 开发框架
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/leizongmin/bamei.svg)](https://greenkeeper.io/)
+
 **本项目需要在 Node.js v6.0 或更高版本上运行**
 
 ## Why
